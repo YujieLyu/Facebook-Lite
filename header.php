@@ -28,14 +28,14 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 </head>
-<body>
-background-color:gray;
+<!--background：Facebook bg #E9EBEE-->
+<body style="background-color: #E9EBEE;">
 <nav class="navbar navbar-extend-sm" style="background: #3b5998">
     <!-- Brand/logo -->
     <a>
         <img src="fb_logo.jpg" alt="logo" style="width:40px;">
     </a>
-    <form class="form-inline" action>
+    <form class="form-inline" action="">
         <div class="input-group">
             <input class="form-control" type="text" placeholder="Search">
             <div class="input-group-append">
@@ -44,8 +44,7 @@ background-color:gray;
         </div>
 
     </form>
-    <h4 class="text-white">Welcome to Facebook-Lite</h4>
+    <h4 class="text-white text-sm">Welcome to Facebook-Lite</h4>
 </nav>
-
 </body>
 </html>
