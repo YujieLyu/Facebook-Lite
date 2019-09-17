@@ -30,16 +30,16 @@
 </head>
 <!--background：Facebook bg #E9EBEE-->
 <body style="background-color: #E9EBEE;">
-<nav class="navbar navbar-extend-sm" style="background: #3b5998">
+<nav class="navbar" style="background: #3b5998">
     <!-- Brand/logo -->
     <a>
-        <img src="fb_logo.jpg" alt="logo" style="width:40px;">
+        <img src="fb_logo.jpg" alt="logo" style="width:35px;">
     </a>
-    <form class="form-inline" action="">
+    <form class="form" action="">
         <div class="input-group">
             <input class="form-control" type="text" placeholder="Search">
             <div class="input-group-append">
-                <span class="input-group-text">Search</span>
+                <button type="button" class="btn btn-outline input-group-text">Search</button>
             </div>
         </div>
 
