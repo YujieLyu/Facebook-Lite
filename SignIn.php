@@ -3,9 +3,5 @@
  * Created by PhpStorm.
  * User: Yujie Lyu
  * Date: 2019-09-17
- * Time: 12:10
+ * Time: 23:41
  */
-include_once('header.php');
-?>
-<h6>hello</h6>
-

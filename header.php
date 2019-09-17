@@ -28,6 +28,7 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 </head>
+
 <!--background：Facebook bg #E9EBEE-->
 <body style="background-color: #E9EBEE;">
 <nav class="navbar" style="background: #3b5998">
@@ -35,15 +36,15 @@
     <a>
         <img src="fb_logo.jpg" alt="logo" style="width:35px;">
     </a>
-    <form class="form" action="">
-        <div class="input-group">
-            <input class="form-control" type="text" placeholder="Search">
-            <div class="input-group-append">
-                <button type="button" class="btn btn-outline input-group-text">Search</button>
-            </div>
-        </div>
-
-    </form>
+<!--    <form class="form" action="">-->
+<!--        <div class="input-group">-->
+<!--            <input class="form-control" type="text" placeholder="Search">-->
+<!--            <div class="input-group-append">-->
+<!--                <button type="button" class="btn btn-outline input-group-text">Search</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!---->
+<!--    </form>-->
     <h4 class="text-white text-sm">Welcome to Facebook-Lite</h4>
 </nav>
 </body>
