@@ -12,18 +12,18 @@ include_once('header.php');
 
 <div class="d-flex justify-content-center mt-4">
     <div>
-        <form class="form">
+        <form class="form" action="CreateNewAccount.php" method="post">
             <div class="input-group mb-3">
-                <input type="text" class="form-control mr-2" placeholder="First Name" id="fname" name="first-name">
-                <input type="text" class="form-control ml-2" placeholder="Last name" id="lname" name="last-name">
+                <input type="text" class="form-control mr-2" placeholder="First Name" id="fname" name="FirstName">
+                <input type="text" class="form-control ml-2" placeholder="Last name" id="lname" name="LastName">
             </div>
-            <input type="text" class="form-control mb-3" placeholder="Screen Name" id="sname" name="screen-name">
+            <input type="text" class="form-control mb-3" placeholder="Screen Name" id="sname" name="ScreenName">
             <input type="text" class="form-control mb-3" placeholder="Email" id="email" name="Email">
             <input type="password" class="form-control mb-3" placeholder="Password" id="pwd" name="Password">
-            <input type="text" class="form-control mb-3" placeholder="Location" id="location" name="location">
+            <input type="text" class="form-control mb-3" placeholder="Location" id="location" name="Location">
 
             <label for="dob"><b>Date of birth:</b></label>
-            <input type="date" class="form-control mb-3" id="dob" name="date-of-birth">
+            <input type="date" class="form-control mb-3" id="dob" name="DateOfBirth">
 
 
             <label for="gender"><b>Gender:</b></label>
@@ -35,8 +35,8 @@ include_once('header.php');
 
 
             <div class="d-flex justify-content-center">
-                <a href="MainPage.php" role="button"
-                   class="btn text-white" style="background: #3b5998"><b>Sign up</b></a>
+                <button type="submit" class="btn text-white" style="background: #3b5998"><a href="MainPage.php"><b>Sign up</b></a></button>
+
             </div>
         </form>
     </div>
