@@ -19,7 +19,7 @@ include_once('header.php');
             <input type="text" class="form-control mb-3" placeholder="Email" id="email" name="Email">
             <input type="password" class="form-control mb-3" placeholder="Password" id="pwd" name="Password">
 
-            <a href="MainPage.php" class="text-primary mr-3">Don't have account? Create a new one!</a>
+            <a href="SignIn.php" class="text-primary mr-3">Don't have account? Create a new one!</a>
             <a href="MainPage.php" role="button" class="btn text-white" style="background: #3b5998">Log in</a>
 
 
