@@ -34,8 +34,8 @@ $createTable = "CREATE TABLE UserAccounts(
     email VARCHAR (30) NOT NULL,
     password VARCHAR (20) NOT NULL,
     location VARCHAR (10),
-    dob DATE ,
-    gender VARCHAR (10)
+    dob DATE,
+    gender VARCHAR (50)
      )";
 
 if ($conn->query($createTable)===TRUE){
