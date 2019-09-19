@@ -16,11 +16,11 @@ include_once('header.php');
             <!--                <input type="text" class="form-control mr-2" placeholder="First Name" id="fname" name="first-name">-->
             <!--                <input type="text" class="form-control ml-2" placeholder="Surname" id="sname" name="surname">-->
             <!--            </div>-->
-            <input type="text" class="form-control mb-3" placeholder="Email" id="email" name="Email">
-            <input type="password" class="form-control mb-3" placeholder="Password" id="pwd" name="Password">
+            <input type="text" class="form-control mb-3" placeholder="Email"  name="Email">
+            <input type="password" class="form-control mb-3" placeholder="Password"  name="Password">
 
             <a href="SignIn.php" class="text-primary mr-3">Don't have account? Create a new one!</a>
-            <button type="submit" class="btn text-white" style="background: #3b5998">Login</button>
+            <input type="submit" value="Login" class="btn text-white" style="background: #3b5998">
 
 
 
