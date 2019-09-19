@@ -35,7 +35,7 @@ include_once('header.php');
 
 
             <div class="d-flex justify-content-center">
-                <button type="submit" class="btn text-white" style="background: #3b5998"><a href="MainPage.php"><b>Sign up</b></a></button>
+                <button type="submit" class="btn text-white" style="background: #3b5998"><b>Sign up</b></button>
 
             </div>
         </form>

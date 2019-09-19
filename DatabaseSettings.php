@@ -26,7 +26,7 @@ if ($conn->connect_error) {
 //    echo "Error creating database:" . $conn->error;
 //}
 
-$createTable = "CREATE TABLE UserAccounts(
+$sql_createTable = "CREATE TABLE UserAccounts(
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     firstname VARCHAR(30) NOT NULL,
     lastname VARCHAR (30) NOT NULL,
@@ -38,7 +38,7 @@ $createTable = "CREATE TABLE UserAccounts(
     gender VARCHAR (50)
      )";
 
-if ($conn->query($createTable)===TRUE){
+if ($conn->query($sql_createTable)===TRUE){
     echo "Table UserAccounts created successfully";
 }else{
     echo "Error creating table:".$conn->error;
