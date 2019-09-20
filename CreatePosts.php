@@ -18,7 +18,7 @@ if ($conn->connect_error) {
 session_start();
 $userID=$_SESSION['userID'];
 $sql_createPost = "INSERT INTO UserPosts(Content,PostTime,UserID) VALUES ('$_POST[Post]',now(),'$userID')";
-$sql_getPost="SELECT Content FROM faceBook.UserPosts WHERE UserID='1' ORDER BY PostTime DESC Limit 1";
+$sql_getPost="SELECT Content FROM faceBook.UserPosts WHERE UserID='".$userID."' ORDER BY PostTime DESC Limit 1";
 
 if ($conn->query($sql_createPost)){
     $result=$conn->query($sql_getPost);

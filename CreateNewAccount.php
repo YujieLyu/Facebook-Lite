@@ -21,7 +21,8 @@ $email = $_POST['Email'];
 $sql_emailUniqueCheck = "SELECT * FROM UserAccounts WHERE Email='" . $email . "'";
 $result = $conn->query($sql_emailUniqueCheck);
 if ($email != "" && $result->num_rows > 0) {
-    header("Location: SignUp.php");
+    echo "Email is invalid";
+//    header("Location: SignUp.php");
     exit();
 }
 
@@ -31,10 +32,11 @@ $sql_createNewAccount = "INSERT INTO UserAccounts (FirstName,LastName,ScreenName
 
 $sql_getUserID = "SELECT UserID FROM UserAccounts WHERE Email='" . $email . "'";
 
-$result = $conn->query($sql_getUserID);
+
 $userID = 0;
 
 if ($conn->query($sql_createNewAccount) === TRUE) {
+    $result = $conn->query($sql_getUserID);
     $row=$result->fetch_assoc();
     $userID=$row['UserID'];
     $_SESSION['userID'] =$userID;

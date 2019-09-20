@@ -28,9 +28,10 @@ session_start();
         <!--Middle Part-->
         <div class="col-6 mt-3">
             <div class="card rounded-0 shadow-sm mb-3 bg-white">
+
                 <!--What's on your mind?-->
                 <div class="card-body">
-                    <form id="post" action="CreatePosts.php" method="post" >
+                    <form id="post" action="CreatePosts.php" method="post">
                         <img class="rounded-circle" src="YujieJPG.JPG" alt="avatar" style="width: 40px;">
                         <textarea class="form-control text-dark mt-2" rows="2" name="Post" id="post"
                                   placeholder="What's on your mind?"></textarea>
@@ -41,40 +42,45 @@ session_start();
                 </div>
             </div>
 
+            <?php for ($x = 0; $x < 5; $x++) { ?>
+                <div class="card rounded-0 shadow-sm mb-3 bg-white">
+                    <div class="card-body">
+                        <div>
+                            <img class="rounded-circle mr-2" src="YujieJPG.JPG" alt="avatar" style="width: 40px;">Yujie
+                        </div>
+                    </div>
+
+                    <div class="ml-4 mb-2">
+                        <?php echo $_SESSION['NewPost']; ?>
+                    </div>
+                    <!--Show likes and comments-->
+                    <div class="row">
+                        <div class="col-6 text-center">
+                            <a href="#" data-toggle="tooltip" title="Chenglong Ma">6 Likes</a>
+                        </div>
+                        <div class="col-6 text-center text-dark">
+                            <a href="#" data-toggle="tooltip" title="Chenglong Ma">1 Comment</a>
+                        </div>
+                    </div>
+
+                    <script>
+                        $(document).ready(function () {
+                            $('[data-toggle="tooltip"]').tooltip();
+                        });
+                    </script>
+
+                    <!--Likes and comments operations-->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-light w-50 mx-2 text-dark">Like</button>
+                        <button type="button" class="btn btn-light w-50 mx-2 text-dark">Comment</button>
+
+                    </div>
+                </div>
+                <?php
+            }
+            ?>
             <!--Posts with likes and comments-->
-            <div class="card rounded-0 shadow-sm mb-3 bg-white">
-                <div class="card-body">
-                    <div>
-                        <img class="rounded-circle mr-2" src="YujieJPG.JPG" alt="avatar" style="width: 40px;">Yujie
-                    </div>
-                </div>
 
-                <div class="ml-4 mb-2">
-                 <?php echo $_SESSION['NewPost']; ?>
-                </div>
-                <!--Show likes and comments-->
-                <div class="row">
-                    <div class="col-6 text-center">
-                        <a href="#" data-toggle="tooltip" title="Chenglong Ma">6 Likes</a>
-                    </div>
-                    <div class="col-6 text-center text-dark">
-                        <a href="#" data-toggle="tooltip" title="Chenglong Ma">1 Comment</a>
-                    </div>
-                </div>
-
-                <script>
-                    $(document).ready(function () {
-                        $('[data-toggle="tooltip"]').tooltip();
-                    });
-                </script>
-
-                <!--Likes and comments operations-->
-                <div class="btn-group">
-                    <button type="button" class="btn btn-light w-50 mx-2 text-dark">Like</button>
-                    <button type="button" class="btn btn-light w-50 mx-2 text-dark">Comment</button>
-
-                </div>
-            </div>
         </div>
 
 
