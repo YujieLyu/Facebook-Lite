@@ -9,9 +9,9 @@
 $servername = "localhost:3306";
 $username = "root";
 $password = "root";
-$dbname="faceBook";
+$dbname = "faceBook";
 
-$conn = new mysqli($servername, $username, $password,$dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
     die("Connection failed:" . $conn->connect_error);
@@ -26,23 +26,42 @@ if ($conn->connect_error) {
 //    echo "Error creating database:" . $conn->error;
 //}
 
-$sql_createTable = "CREATE TABLE UserAccounts(
-    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    firstname VARCHAR(30) NOT NULL,
-    lastname VARCHAR (30) NOT NULL,
-    screenname VARCHAR(30),
-    email VARCHAR (30) NOT NULL,
-    password VARCHAR (20) NOT NULL,
-    location VARCHAR (10),
-    dob DATE,
-    gender VARCHAR (50)
+//Create UserAccount table
+$sql_createUserAccounts = "CREATE TABLE UserAccounts(
+    UserID INT(6) UNSIGNED AUTO_INCREMENT,
+    FirstName VARCHAR(30) NOT NULL,
+    LastName VARCHAR (30) NOT NULL,
+    ScreenName VARCHAR(30),
+    Email VARCHAR (30) NOT NULL,
+    Password VARCHAR (20) NOT NULL,
+    Location VARCHAR (10),
+    DoB DATE,
+    Gender VARCHAR (50),
+    PRIMARY KEY(UserID)
      )";
 
-if ($conn->query($sql_createTable)===TRUE){
+if ($conn->query($sql_createUserAccounts) === TRUE) {
     echo "Table UserAccounts created successfully";
+} else {
+    echo "Error creating table:" . $conn->error;
+}
+
+//Create
+$sql_createUserPosts = "CREATE TABLE UserPosts(
+    PostID INT(6) UNSIGNED AUTO_INCREMENT,
+    Content VARCHAR(500) NOT NULL,
+    PostTime DATETIME NOT NULL, 
+    UserID INT(6) UNSIGNED,
+    PRIMARY KEY (PostID),
+    FOREIGN KEY (UserID) REFERENCES UserAccounts (UserID)
+)";
+
+if ($conn->query($sql_createUserPosts)===TRUE){
+    echo "Table UserPosts created successfully";
 }else{
     echo "Error creating table:".$conn->error;
 }
+
 $conn->close();
 
 

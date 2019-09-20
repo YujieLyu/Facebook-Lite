@@ -5,7 +5,9 @@
  * Date: 2019-09-17
  * Time: 23:41
  */
+
 include_once('header.php');
+session_start();
 ?>
 <h2 class="text-center text-dark mt-5">Create a new account</h2>
 <p class="text-center">It's quick and easy.</p>
@@ -38,6 +40,8 @@ include_once('header.php');
                     }
                 })
             </script>
+
+
             <input type="password" class="form-control mb-3" placeholder="Password" name="Password"
                    required>
             <input type="text" class="form-control mb-3" placeholder="Location" name="Location">

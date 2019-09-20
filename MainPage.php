@@ -6,6 +6,7 @@
  * Time: 20:34
  */
 include_once('header.php');
+session_start();
 ?>
 <div class="container-fluid">
 
@@ -29,16 +30,17 @@ include_once('header.php');
             <div class="card rounded-0 shadow-sm mb-3 bg-white">
                 <!--What's on your mind?-->
                 <div class="card-body">
-                    <img class="rounded-circle" src="YujieJPG.JPG" alt="avatar" style="width: 40px;">
-                    <textarea class="form-control text-dark mt-2" rows="2" id="new_mind"
-                              placeholder="What's on your mind?"></textarea>
+                    <form id="post" action="CreatePosts.php" method="post" >
+                        <img class="rounded-circle" src="YujieJPG.JPG" alt="avatar" style="width: 40px;">
+                        <textarea class="form-control text-dark mt-2" rows="2" name="Post" id="post"
+                                  placeholder="What's on your mind?"></textarea>
 
-                    <button class="btn btn-outline text-white mt-2 border-0 float-sm-right px-2" style="background: #3b5998">
-                        Submit
-                    </button>
-
+                        <input type="submit" class="btn text-white mt-2 border-0 float-sm-right px-2"
+                               style="background: #3b5998">
+                    </form>
                 </div>
             </div>
+
             <!--Posts with likes and comments-->
             <div class="card rounded-0 shadow-sm mb-3 bg-white">
                 <div class="card-body">
@@ -48,7 +50,7 @@ include_once('header.php');
                 </div>
 
                 <div class="ml-4 mb-2">
-                    Here is your post, you can post anythings here, but please respect others from heart.
+                 <?php echo $_SESSION['NewPost']; ?>
                 </div>
                 <!--Show likes and comments-->
                 <div class="row">
@@ -88,7 +90,9 @@ include_once('header.php');
                             Jessie Lyu
                             <div class="btn-group mt-3">
                                 <button type="button" class="btn btn-outline-secondary mx-3">No</button>
-                                <button type="button" class="btn btn-outline text-white" style="background: #3b5998;">Yes</button>
+                                <button type="button" class="btn btn-outline text-white" style="background: #3b5998;">
+                                    Yes
+                                </button>
                             </div>
                         </li>
                     </ul>
