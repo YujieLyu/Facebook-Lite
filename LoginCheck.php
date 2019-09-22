@@ -36,7 +36,7 @@ if ($pwd === $_POST["Password"]) {
             $userID = $rowID['UserID'];
         }
     }
-    $_SESSION['userID'] = $userID;
+    $_SESSION['UserID'] = $userID;
     header("Location: MainPage.php"); /* Redirect browser */
     exit();
 } else {

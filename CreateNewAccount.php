@@ -39,7 +39,7 @@ if ($conn->query($sql_createNewAccount) === TRUE) {
     $result = $conn->query($sql_getUserID);
     $row=$result->fetch_assoc();
     $userID=$row['UserID'];
-    $_SESSION['userID'] =$userID;
+    $_SESSION['UserID'] =$userID;
     header("Location: MainPage.php");
     exit();
 } else {

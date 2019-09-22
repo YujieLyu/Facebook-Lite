@@ -7,7 +7,9 @@
  */
 include_once('header.php');
 session_start();
+include 'GetPost.php';
 ?>
+
 <div class="container-fluid">
 
     <div class="row">
@@ -16,10 +18,15 @@ session_start();
             <div class="card rounded-0 border-0 bg-transparent">
                 <!--Name and avatar-->
                 <div class="card-body">
+                    <?php
+                    include 'GetUser.php';
+                    $user=$_SESSION['User'];
+                    $userName=$user[0]["ScreenName"];
+                    ?>
                     <a>
                         <img class="rounded-circle" src="YujieJPG.JPG" alt="avatar" style="width: 30px;">
                     </a>
-                    <a href="#" class="text-body ml-2">Yujie Lyu</a>
+                    <a href="#" class="text-body ml-2"><?php echo $userName; ?></a>
                 </div>
             </div>
         </div>
@@ -42,16 +49,24 @@ session_start();
                 </div>
             </div>
 
-            <?php for ($x = 0; $x < 5; $x++) { ?>
+
+            <?php
+            $posts=$_SESSION["Posts"];
+            if ($posts!=NULL):
+                foreach ($posts as $index => $value) {
+                    $post_array[$index] = $value["Content"];
+                }
+            foreach ($post_array as $post=>$content):
+            ?>
                 <div class="card rounded-0 shadow-sm mb-3 bg-white">
                     <div class="card-body">
                         <div>
-                            <img class="rounded-circle mr-2" src="YujieJPG.JPG" alt="avatar" style="width: 40px;">Yujie
+                            <img class="rounded-circle mr-2" src="YujieJPG.JPG" alt="avatar" style="width: 40px;"><?php echo $userName; ?>
                         </div>
                     </div>
 
                     <div class="ml-4 mb-2">
-                        <?php echo $_SESSION['NewPost']; ?>
+                        <?php echo $content; ?>
                     </div>
                     <!--Show likes and comments-->
                     <div class="row">
@@ -77,7 +92,8 @@ session_start();
                     </div>
                 </div>
                 <?php
-            }
+            endforeach;
+            endif;
             ?>
             <!--Posts with likes and comments-->
 
