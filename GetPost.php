@@ -31,3 +31,4 @@ if ($result_post->num_rows > 0) {
 } else {
     $_SESSION["Posts"] = NULL;
 }
+

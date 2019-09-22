@@ -15,6 +15,8 @@
     <!--    CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <!--    jQuery-->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -30,21 +32,21 @@
 </head>
 
 <!--background：Facebook bg #E9EBEE-->
-<body style="background-color: #E9EBEE;">
+<body id="Facebook-Lite" style="background-color: #E9EBEE;">
 <nav class="navbar" style="background: #3b5998">
     <!-- Brand/logo -->
     <a>
         <img src="fb_logo.jpg" alt="logo" style="width:35px;">
     </a>
-<!--    <form class="form" action="">-->
-<!--        <div class="input-group">-->
-<!--            <input class="form-control" type="text" placeholder="Search">-->
-<!--            <div class="input-group-append">-->
-<!--                <button type="button" class="btn btn-outline input-group-text">Search</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!---->
-<!--    </form>-->
+    <!--    <form class="form" action="">-->
+    <!--        <div class="input-group">-->
+    <!--            <input class="form-control" type="text" placeholder="Search">-->
+    <!--            <div class="input-group-append">-->
+    <!--                <button type="button" class="btn btn-outline input-group-text">Search</button>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!---->
+    <!--    </form>-->
     <h4 class="text-white text-sm">Welcome to Facebook-Lite</h4>
 </nav>
 </body>

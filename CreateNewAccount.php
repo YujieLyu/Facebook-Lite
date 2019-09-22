@@ -48,3 +48,5 @@ if ($conn->query($sql_createNewAccount) === TRUE) {
 
 $conn->close();
 
+
+
