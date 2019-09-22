@@ -16,10 +16,11 @@ if ($conn->connect_error) {
     die("Connection failed:" . $conn->connect_error);
 }
 
+//session_start();//todo:为什么这里加了是重复？
 
 $userID = $_SESSION["UserID"];
 
-$sql_getPost = "SELECT * FROM faceBook.UserPosts WHERE UserID='" . $userID . "' ORDER BY PostTime DESC";
+$sql_getPost = "select * from faceBook.UserPosts where UserID='" . $userID . "' order by PostTime DESC";
 
 $result_post = $conn->query($sql_getPost);
 

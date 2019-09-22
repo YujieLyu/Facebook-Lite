@@ -6,7 +6,7 @@
  * Time: 23:41
  */
 
-include_once('header.php');
+include_once 'header.php';
 session_start();
 ?>
 <h2 class="text-center text-dark mt-5">Create a new account</h2>
@@ -14,7 +14,7 @@ session_start();
 
 <div class="d-flex justify-content-center mt-4">
     <div>
-        <form class="form" action="CreateNewAccount.php" method="post" autocomplete="on">
+        <form class="form" action="../Controllers/CreateNewAccount.php" method="post" autocomplete="on">
             <div class="input-group mb-3">
                 <input type="text" class="form-control mr-2" placeholder="First Name" name="FirstName" id="fname"
                        autofocus
@@ -68,3 +68,6 @@ session_start();
     </div>
 
 </div>
+<?php
+include_once 'footer.php'
+?>

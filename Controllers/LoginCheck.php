@@ -14,9 +14,9 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed:" . $conn->connect_error);
 }
-session_start();
+session_start();//Need to declare session_start() if new $_SESSION is assigned in this file
 
-$sql_loginCheck = "SELECT Password FROM UserAccounts WHERE Email= '" . $_POST["Email"] . "'";
+$sql_loginCheck = "select Password from UserAccounts where Email= '" . $_POST["Email"] . "'";
 $result = $conn->query($sql_loginCheck);
 $pwd = 0;
 
@@ -27,7 +27,7 @@ if ($result->num_rows > 0) {
     }
 }
 
-$sql_getUserID = "SELECT UserID FROM UserAccounts WHERE Email='" . $_POST["Email"] . "'";
+$sql_getUserID = "select UserID from UserAccounts where Email='" . $_POST["Email"] . "'";
 $userID = 0;
 if ($pwd === $_POST["Password"]) {
     $resultID = $conn->query($sql_getUserID);
@@ -37,9 +37,10 @@ if ($pwd === $_POST["Password"]) {
         }
     }
     $_SESSION['UserID'] = $userID;
-    header("Location: MainPage.php"); /* Redirect browser */
+    header("Location: ../View/MainPage.php"); /* Redirect browser */
     exit();
 } else {
-    echo "Please Check your login info";
+    header("Location: ../View/Login.php?loginError=1");
+
 }
 

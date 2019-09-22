@@ -5,11 +5,11 @@
  * Date: 2019-09-11
  * Time: 20:34
  */
-include_once('header.php');
+include_once 'header.php';
 
 session_start();
 
-include 'GetPost.php';
+include '../Controllers/GetPost.php';
 ?>
 
 <div class="container-fluid">
@@ -21,19 +21,25 @@ include 'GetPost.php';
                 <!--Name and avatar-->
                 <div class="card-body">
                     <?php
-                    include 'GetUser.php';
+                    include '../Controllers/GetUser.php';
                     $user = $_SESSION['User'];
                     $userName = $user[0]["ScreenName"];
                     $userGender = $user[0]['Gender'];
-                    $userDOB=$user[0]['DoB'];
+                    $userDOB = $user[0]['DoB'];
                     $userLocation = $user[0]['Location'];
-
                     ?>
+
+<!--                    Profile part-->
                     <div>
-                        <a>
-                            <img class="rounded-circle" src="YujieJPG.JPG" alt="avatar" style="width: 30px;">
-                        </a>
-                        <a href="#" class="text-body ml-2"><span style="color: #3b5998;"><b><?php echo $userName; ?></b></span></a>
+<!--                        Avatar and Screen Name-->
+                        <div>
+                            <a>
+                                <img class="rounded-circle" src="../resources/Yujie.JPG" alt="avatar" style="width: 30px;">
+                            </a>
+                            <a href="#" class="text-body ml-2"><span style="color: #3b5998;"><b><?php echo $userName; ?></b></span></a>
+
+                        </div>
+<!--                        Personal Details-->
                         <div class="text-dark mx-5 mt-3">
                             <div class="row">
                                 <i class="col-1 fas fa-venus-mars"></i>
@@ -49,27 +55,15 @@ include 'GetPost.php';
                             </div>
                             <div class="row">
                                 <i class="col-1 fas fa-user-friends"></i>
-                                <p class="col-7">Friends <?php  ?></p>
+                                <p class="col-7">Friends <?php ?></p>
                             </div>
                         </div>
 
                     </div>
-
-                    <div class="btn-group-vertical mt-3">
-<!--                        <button class="btn bg-light text-dark" name="Location" id="location">-->
-<!--                            <a href="#" class="mx-5 text-dark">--><?php //echo $userLocation; ?><!--</a>-->
-<!--                        </button>-->
-<!--                        <button class="btn bg-light text-dark" name="Location" id="location">-->
-<!--                            <a href="#" class="mx-5 text-dark">Location --><?php //echo $userLocation; ?><!--</a>-->
-<!--                        </button>-->
-                        <button class="btn bg-light text-dark" name="FriendNumber" id="friend-num">
-                            <a href="#" class="mx-5 text-dark">Friends <?php
-                                //                               echo $friendNum;
-                                ?></a>
+<!--                    Manage profile-->
+                        <button class="btn bg-light text-dark mx-auto" name="ManageProfile" id="manage-profile">
+                            <a href="#" class="mx-5 text-dark">Manage My Profile </a>
                         </button>
-
-
-                    </div>
 
                 </div>
             </div>
@@ -82,8 +76,8 @@ include 'GetPost.php';
 
                 <!--What's on your mind?-->
                 <div class="card-body">
-                    <form id="post" action="CreatePosts.php" method="post">
-                        <img class="rounded-circle" src="YujieJPG.JPG" alt="avatar" style="width: 40px;">
+                    <form id="post" action="../Controllers/CreatePosts.php" method="post">
+                        <img class="rounded-circle" src="../resources/Yujie.JPG" alt="avatar" style="width: 40px;">
                         <textarea class="form-control text-dark mt-2" rows="4" name="Post" id="post"
                                   placeholder="What's on your mind?" style="resize: none"></textarea>
 
@@ -106,7 +100,7 @@ include 'GetPost.php';
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-1">
-                                    <img class="flex rounded-circle mr-2" src="YujieJPG.JPG" alt="avatar"
+                                    <img class="flex rounded-circle mr-2" src="../resources/Yujie.JPG" alt="avatar"
                                          style="width: 40px;">
                                 </div>
                                 <div class="col-3">
@@ -120,14 +114,14 @@ include 'GetPost.php';
                             <?php echo $post_content; ?>
                         </div>
                         <!--Show likes and comments-->
-                        <div class="row">
-                            <div class="col-6 text-center">
+                        <div class="row mt-2 mb-n2">
+                            <div class="col-6 text-center small">
                                 <a href="#" data-toggle="tooltip" title="Chenglong Ma">6 Likes</a>
                             </div>
-                            <div class="col-6 text-center text-dark">
+                            <div class="col-6 text-center text-dark small">
                                 <a href="#" data-toggle="tooltip" title="Chenglong Ma">1 Comment</a>
                             </div>
-                        </div>
+                        </div><hr/>
 
                         <script>
                             $(document).ready(function () {
@@ -136,9 +130,9 @@ include 'GetPost.php';
                         </script>
 
                         <!--Likes and comments operations-->
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-light w-50 mx-2 text-dark">Like</button>
-                            <button type="button" class="btn btn-light w-50 mx-2 text-dark">Comment</button>
+                        <div class="btn-group mt-n3">
+                            <button type="button" class="btn btn-light w-50  text-dark">Like</button>
+                            <button type="button" class="btn btn-light w-50 text-dark">Comment</button>
 
                         </div>
                     </div>
@@ -158,9 +152,8 @@ include 'GetPost.php';
                     <h6 class="text-dark">New friend requests</h6>
                     <ul class="list-group mx-n3">
                         <li class="list-group-item  border border-0">
-                            <img class="rounded-circle mr-2" src="YujieJPG.JPG" alt="new-friends-avatar"
-                                 style="width: 40px;">
-                            Jessie Lyu
+                            <img class="rounded-circle mr-2" src="../resources/Yujie.JPG" alt="new-friends-avatar"
+                                 style="width: 40px;">  Jessie Lyu <br>
                             <div class="btn-group mt-3">
                                 <button type="button" class="btn btn-outline-secondary mx-3">No</button>
                                 <button type="button" class="btn btn-outline text-white" style="background: #3b5998;">
@@ -174,3 +167,6 @@ include 'GetPost.php';
         </div>
     </div>
 </div>
+<?php
+include_once 'footer.php'
+?>

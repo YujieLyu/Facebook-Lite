@@ -46,7 +46,7 @@ if ($conn->query($sql_createUserAccounts) === TRUE) {
     echo "Error creating table:" . $conn->error;
 }
 
-//Create
+//Create UserPosts table
 $sql_createUserPosts = "CREATE TABLE UserPosts(
     PostID INT(6) UNSIGNED AUTO_INCREMENT,
     Content VARCHAR(500) NOT NULL,
@@ -56,11 +56,30 @@ $sql_createUserPosts = "CREATE TABLE UserPosts(
     FOREIGN KEY (UserID) REFERENCES UserAccounts (UserID)
 )";
 
-if ($conn->query($sql_createUserPosts)===TRUE){
+if ($conn->query($sql_createUserPosts) === TRUE) {
     echo "Table UserPosts created successfully";
-}else{
-    echo "Error creating table:".$conn->error;
+} else {
+    echo "Error creating table:" . $conn->error;
 }
+
+
+//Create Friendship table
+$sql_createFriendship = "CREATE TABLE Friendship(
+  FriendshipID INT(6) UNSIGNED AUTO_INCREMENT,
+  SenderID INT(6) UNSIGNED, 
+  ReceiverID INT(6) UNSIGNED,
+  is_Friendship BOOLEAN NOT NULL,
+  PRIMARY KEY (FriendshipID),
+  FOREIGN KEY (SenderID) REFERENCES UserAccounts (UserID),
+  FOREIGN KEY (ReceiverID) REFERENCES UserAccounts (UserID)
+)";
+
+if ($conn->query($sql_createFriendship)==TRUE){
+    echo "Table Friendship created successfully";
+}else {
+    echo "Error creating table:" . $conn->error;
+}
+
 
 $conn->close();
 

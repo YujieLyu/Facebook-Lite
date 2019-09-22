@@ -14,7 +14,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed:" . $conn->connect_error);
 }
-session_start();
+session_start();//Need to declare session_start() if new $_SESSION is assigned in this file
 
 //Check whether email is existing or not
 $email = $_POST['Email'];
@@ -27,10 +27,10 @@ if ($email != "" && $result->num_rows > 0) {
 }
 
 //Create new account
-$sql_createNewAccount = "INSERT INTO UserAccounts (FirstName,LastName,ScreenName,Email,Password,Location,DoB,Gender)
-     VALUES('$_POST[FirstName]','$_POST[LastName]','$_POST[ScreenName]','$_POST[Email]','$_POST[Password]','$_POST[Location]','$_POST[DateOfBirth]','$_POST[Gender]')";
+$sql_createNewAccount = "insert into UserAccounts (FirstName,LastName,ScreenName,Email,Password,Location,DoB,Gender)
+     values('$_POST[FirstName]','$_POST[LastName]','$_POST[ScreenName]','$_POST[Email]','$_POST[Password]','$_POST[Location]','$_POST[DateOfBirth]','$_POST[Gender]')";
 
-$sql_getUserID = "SELECT UserID FROM UserAccounts WHERE Email='" . $email . "'";
+$sql_getUserID = "select UserID from UserAccounts where Email='" . $email . "'";
 
 
 $userID = 0;
@@ -40,7 +40,7 @@ if ($conn->query($sql_createNewAccount) === TRUE) {
     $row=$result->fetch_assoc();
     $userID=$row['UserID'];
     $_SESSION['UserID'] =$userID;
-    header("Location: MainPage.php");
+    header("Location: ../View/MainPage.php");
     exit();
 } else {
     echo "Error:" . $sql_createNewAccount . "<br>" . $conn->error;

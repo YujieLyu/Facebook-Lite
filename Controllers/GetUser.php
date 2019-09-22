@@ -18,7 +18,7 @@ if ($conn->connect_error) {
 
 $userID=$_SESSION["UserID"];
 
-$sql_getUser="SELECT * FROM faceBook.UserAccounts WHERE UserID='".$userID."'";
+$sql_getUser="select * from faceBook.UserAccounts where UserID='".$userID."'";
 
 $result_user=$conn->query($sql_getUser);
 

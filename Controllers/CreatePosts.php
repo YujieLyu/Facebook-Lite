@@ -15,19 +15,15 @@ if ($conn->connect_error) {
     die("Connection failed:" . $conn->connect_error);
 }
 
-session_start();
+session_start();//Need to declare session_start() if new $_SESSION is assigned in this file
+
 $userID=$_SESSION['UserID'];
-$sql_createPost = "INSERT INTO UserPosts(Content,PostTime,UserID) VALUES ('$_POST[Post]',now(),'$userID')";
+$sql_createPost = "insert into UserPosts(Content,PostTime,UserID) values ('$_POST[Post]',now(),'$userID')";
 //$sql_getPost="SELECT Content FROM faceBook.UserPosts WHERE UserID='".$userID."' ORDER BY PostTime DESC Limit 1";
 
 if ($conn->query($sql_createPost)){
-//    $result=$conn->query($sql_getPost);
-//    if ($result->num_rows>0){
-//        $row=$result->fetch_assoc();
-//        $newPost=$row['Content'];
-//        $_SESSION['NewPost']=$newPost;
-//    }
-    header("Location: MainPage.php");
+
+    header("Location: ../View/MainPage.php");
 }else{
     echo "post failed:".$conn->error;
 }
