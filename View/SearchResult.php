@@ -19,19 +19,21 @@ session_start();
         <div class="col-6">
             <div class="card rounded-0 border-1 shadow-sm my-5">
                 <div class="card-body">
-                    Search Result:
+                    <h5 class="my-3 font-weight-bold">Search Result:</h5>
                     <ul class="my-2 list-group">
                         <?php
                         $searchResult = $_SESSION['SearchResult'];
                         foreach ($searchResult as $index => $user):
                             $screeName = $user['ScreenName'];
                             $location = $user['Location'];
+                            $_SESSION["ReceiverID"] = $user['UserID'];
                             ?>
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="col-1 mx-2 ">
                                         <a href="#">
-                                            <img class="rounded-circle" src="../resources/Yujie.JPG" alt="avatar" style="width: 50px;">
+                                            <img class="rounded-circle" src="../resources/Yujie.JPG" alt="avatar"
+                                                 style="width: 50px;">
                                         </a>
                                     </div>
                                     <div class="col-6 mx-2">
@@ -40,7 +42,10 @@ session_start();
                                     </div>
 
                                     <div class="col-4 h-50 float-right btn-group">
-                                        <button class="btn btn-outline-dark" >Add friend</button>
+                                        <form method="post" action="../Controllers/SendFriendRequest.php">
+                                            <input type="submit" class="btn btn-outline-dark" value="Add friend">
+                                        </form>
+
                                         <button class="btn btn-outline-dark">•••</button>
                                     </div>
                                 </div>

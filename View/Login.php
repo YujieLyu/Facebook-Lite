@@ -19,12 +19,15 @@ session_start();
 
             <a href="SignUp.php" class="text-primary mr-3">Don't have account? Create a new one!</a>
             <input type="submit" value="Login" class="btn text-white" style="background: #3b5998">
-            <p style="color:Tomato" id="errorSuggestion"></p>
-<?php
-if (isset($_GET['loginError'])){
-    echo "<p style=\"color:Tomato\" id=\"errorSuggestion\">Email or password is wrong</p>";
-}
-?>
+            <?php
+            if (isset($_GET['loginError'])) :
+                 ?>
+                <div class="alert alert-danger">
+                    <strong>Sorry!</strong> Email or password is invalid.
+                </div>
+                <?php
+            endif;
+            ?>
         </form>
     </div>
 
