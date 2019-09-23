@@ -19,7 +19,7 @@ session_start();
 
 $sql_createFriendRequest="insert into Friendship(SenderID,ReceiverID,is_Friendship) values ('$_SESSION[UserID]','$_SESSION[ReceiverID]',FALSE)";
 if ($conn->query($sql_createFriendRequest)){
-    echo "Friend request sent successfully";
+    header("Location: ../View/SearchResult.php?FriendRequest=1");
 }else{
     echo "Failed!";
 }

@@ -42,9 +42,23 @@ session_start();
                                     </div>
 
                                     <div class="col-4 h-50 float-right btn-group">
-                                        <form method="post" action="../Controllers/SendFriendRequest.php">
-                                            <input type="submit" class="btn btn-outline-dark" value="Add friend">
-                                        </form>
+<!--                                        todo:有问题，需要继续调整按钮显示-->
+                                        <?php
+                                        if (!isset($_GET['FriendRequest'])):
+                                        ?>
+                                            <form method="post" action="../Controllers/SendFriendRequest.php">
+                                                <input type="submit" class="btn btn-outline-dark" value="Add friend">
+                                            </form>
+                                        <?php
+                                        else:
+                                            ?>
+                                            <form method="post" action="../Controllers/SendFriendRequest.php">
+                                                <input type="submit" class="btn btn-dark" value="Request Sent" disabled>
+                                            </form>
+                                        <?php
+                                        endif;
+                                        ?>
+
 
                                         <button class="btn btn-outline-dark">•••</button>
                                     </div>
