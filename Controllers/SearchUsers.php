@@ -27,5 +27,5 @@ if ($result_users->num_rows>0){
     $_SESSION['SearchResult']=$users_array;
     header("Location: ../View/SearchResult.php");
 }else{
-    $_SESSION['SearchResult']=NULL;
+  header("Location: ../View/SearchResult.php?noResult=1");
 }

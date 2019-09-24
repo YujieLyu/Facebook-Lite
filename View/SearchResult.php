@@ -23,6 +23,7 @@ session_start();
                     <ul class="my-2 list-group">
                         <?php
                         $searchResult = $_SESSION['SearchResult'];
+                        if (!isset($_GET['noResult'])):
                         foreach ($searchResult as $index => $user):
                             $screeName = $user['ScreenName'];
                             $location = $user['Location'];
@@ -42,10 +43,10 @@ session_start();
                                     </div>
 
                                     <div class="col-4 h-50 float-right btn-group">
-<!--                                        todo:有问题，需要继续调整按钮显示-->
+                                        <!--                                        todo:有问题，需要继续调整按钮显示-->
                                         <?php
                                         if (!isset($_GET['FriendRequest'])):
-                                        ?>
+                                            ?>
                                             <form method="post" action="../Controllers/SendFriendRequest.php">
                                                 <input type="submit" class="btn btn-outline-dark" value="Add friend">
                                             </form>
@@ -65,7 +66,10 @@ session_start();
                                 </div>
 
                             </li>
-                        <?php endforeach; ?>
+                        <?php endforeach;
+                        else:
+                        echo "No result";
+                        endif;?>
                     </ul>
                 </div>
             </div>

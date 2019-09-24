@@ -29,17 +29,19 @@ include '../Controllers/GetPost.php';
                     $userLocation = $user[0]['Location'];
                     ?>
 
-<!--                    Profile part-->
+                    <!--                    Profile part-->
                     <div>
-<!--                        Avatar and Screen Name-->
+                        <!--                        Avatar and Screen Name-->
                         <div>
                             <a>
-                                <img class="rounded-circle" src="../resources/Yujie.JPG" alt="avatar" style="width: 30px;">
+                                <img class="rounded-circle" src="../resources/Yujie.JPG" alt="avatar"
+                                     style="width: 30px;">
                             </a>
-                            <a href="#" class="text-body ml-2"><span style="color: #3b5998;"><b><?php echo $userName; ?></b></span></a>
+                            <a href="#" class="text-body ml-2"><span
+                                        style="color: #3b5998;"><b><?php echo $userName; ?></b></span></a>
 
                         </div>
-<!--                        Personal Details-->
+                        <!--                        Personal Details-->
                         <div class="text-dark mx-5 mt-3">
                             <div class="row">
                                 <i class="col-1 fas fa-venus-mars"></i>
@@ -60,10 +62,10 @@ include '../Controllers/GetPost.php';
                         </div>
 
                     </div>
-<!--                    Manage profile-->
-                        <button class="btn bg-light text-dark mx-auto" name="ManageProfile" id="manage-profile">
-                            <a href="#" class="mx-5 text-dark">Manage My Profile </a>
-                        </button>
+                    <!--                    Manage profile-->
+                    <button class="btn bg-light text-dark mx-auto" name="ManageProfile" id="manage-profile">
+                        <a href="#" class="mx-5 text-dark">Manage My Profile </a>
+                    </button>
 
                 </div>
             </div>
@@ -121,7 +123,8 @@ include '../Controllers/GetPost.php';
                             <div class="col-6 text-center text-dark small">
                                 <a href="#" data-toggle="tooltip" title="Chenglong Ma">1 Comment</a>
                             </div>
-                        </div><hr/>
+                        </div>
+                        <hr/>
 
                         <script>
                             $(document).ready(function () {
@@ -151,16 +154,32 @@ include '../Controllers/GetPost.php';
                 <div class="card-body">
                     <h6 class="text-dark">New friend requests</h6>
                     <ul class="list-group mx-n3">
-                        <li class="list-group-item  border border-0">
-                            <img class="rounded-circle mr-2" src="../resources/Yujie.JPG" alt="new-friends-avatar"
-                                 style="width: 40px;">  Jessie Lyu <br>
-                            <div class="btn-group mt-3">
-                                <button type="button" class="btn btn-outline-secondary mx-3">No</button>
-                                <button type="button" class="btn btn-outline text-white" style="background: #3b5998;">
-                                    Yes
-                                </button>
-                            </div>
-                        </li>
+                        <?php
+                        include '../Controllers/GetFriendRequest.php';
+                        $requests = $_SESSION['FriendRequests'];
+                        if ($requests !== null):
+                            foreach ($requests as $index => $request):
+                                $senderName = $requests[0]['ScreenName'];
+                                ?>
+                                <li class="list-group-item  border border-0">
+                                    <img class="rounded-circle mr-2" src="../resources/Yujie.JPG"
+                                         alt="new-friends-avatar"
+                                         style="width: 40px;"> <?php echo $senderName ?> <br>
+                                    <div class="btn-group mt-3">
+                                        <button type="button" class="btn btn-outline-secondary mx-3">No</button>
+                                        <button type="button" class="btn btn-outline text-white"
+                                                style="background: #3b5998;">
+                                            Yes
+                                        </button>
+                                    </div>
+                                </li>
+                            <?php
+                            endforeach;
+                        endif;
+                        ?>
+
+
+
                     </ul>
                 </div>
             </div>
