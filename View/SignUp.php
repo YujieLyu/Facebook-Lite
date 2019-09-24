@@ -7,6 +7,10 @@
  */
 
 include_once 'header.php';
+require_once("../Controllers/DBConnect.php");
+require_once("../Controllers/UserAccount.php");
+$createAccount = new UserAccount();
+$userID=$createAccount->createAccount();
 session_start();
 ?>
 <h2 class="text-center text-dark mt-5">Create a new account</h2>
@@ -14,7 +18,7 @@ session_start();
 
 <div class="d-flex justify-content-center mt-4">
     <div>
-        <form class="form" action="../Controllers/CreateNewAccount.php" method="post" autocomplete="on">
+        <form class="form" action="<?php  $_SERVER['PHP_SELF'] ?>" method="post" autocomplete="on">
             <div class="input-group mb-3">
                 <input type="text" class="form-control mr-2" placeholder="First Name" name="FirstName" id="fname"
                        autofocus

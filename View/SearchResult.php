@@ -25,7 +25,9 @@ session_start();
                         $searchResult = $_SESSION['SearchResult'];
                         if (!isset($_GET['noResult'])):
                         foreach ($searchResult as $index => $user):
-                            $screeName = $user['ScreenName'];
+                            $screenName = $user['ScreenName'];
+                            $firstName=$user['FirstName'];
+                            $lastName=$user['LastName'];
                             $location = $user['Location'];
                             $_SESSION["ReceiverID"] = $user['UserID'];
                             ?>
@@ -38,8 +40,9 @@ session_start();
                                         </a>
                                     </div>
                                     <div class="col-6 mx-2">
-                                        <p style="color: #3b5998;"><b><?php echo $screeName ?><br></b></p>
-                                        <?php echo $location ?>
+                                        <span style="color: #3b5998;"><b><?php echo $screenName ?><br></b></span>
+                                        <span class="text-dark"><?php echo $firstName." ".$lastName ?></span><br>
+                                        <span><?php echo $location ?></span>
                                     </div>
 
                                     <div class="col-4 h-50 float-right btn-group">

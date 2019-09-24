@@ -9,6 +9,8 @@ include_once 'header.php';
 
 session_start();
 
+//$friendRequests=new FriendRequest($_POST)
+
 include '../Controllers/GetPost.php';
 ?>
 
@@ -159,18 +161,16 @@ include '../Controllers/GetPost.php';
                         $requests = $_SESSION['FriendRequests'];
                         if ($requests !== null):
                             foreach ($requests as $index => $request):
-                                $senderName = $requests[0]['ScreenName'];
+                                $senderName = $requests[$index ]['ScreenName'];
                                 ?>
                                 <li class="list-group-item  border border-0">
                                     <img class="rounded-circle mr-2" src="../resources/Yujie.JPG"
                                          alt="new-friends-avatar"
                                          style="width: 40px;"> <?php echo $senderName ?> <br>
                                     <div class="btn-group mt-3">
-                                        <button type="button" class="btn btn-outline-secondary mx-3">No</button>
-                                        <button type="button" class="btn btn-outline text-white"
-                                                style="background: #3b5998;">
-                                            Yes
-                                        </button>
+                                        <input type="submit" class="btn btn-outline-secondary mx-3" value="No">
+                                        <input type="submit" class="btn btn-outline text-white"
+                                                style="background: #3b5998;" value="Yes">
                                     </div>
                                 </li>
                             <?php
