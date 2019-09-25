@@ -8,12 +8,18 @@
 include_once 'header.php';
 require_once("../Controllers/DBConnect.php");
 require_once("../Controllers/FriendRequest.php");
+require_once ("../Controllers/Post.php");
 $user = $_SESSION['User'];
 $userID = $user[0]["UserID"];
 $userName = $user[0]["ScreenName"];
 $userGender = $user[0]['Gender'];
 $userDOB = $user[0]['DoB'];
 $userLocation = $user[0]['Location'];
+$userPost=new Post();
+$posts=$userPost->getPosts($userID);
+if (isset($_POST['Post'])):
+$userPost->createPost($userID);
+endif;
 $requests = new FriendRequest($userID);
 $requests_array = $requests->getRequest($userID);
 ?>
@@ -75,7 +81,7 @@ $requests_array = $requests->getRequest($userID);
 
                 <!--What's on your mind?-->
                 <div class="card-body">
-                    <form id="post" action="../Controllers/CreatePosts.php" method="post">
+                    <form id="post" action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
                         <img class="rounded-circle" src="../resources/Yujie.JPG" alt="avatar" style="width: 40px;">
                         <textarea class="form-control text-dark mt-2" rows="4" name="Post" id="post"
                                   placeholder="What's on your mind?" style="resize: none"></textarea>
@@ -88,7 +94,7 @@ $requests_array = $requests->getRequest($userID);
 
 
             <?php
-            $posts = $_SESSION["Posts"];
+
             if ($posts != NULL):
                 foreach ($posts as $index => $value) :
                     $post_time = $value['PostTime'];
