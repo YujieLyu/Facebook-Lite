@@ -5,7 +5,6 @@
  * Date: 2019-09-17
  * Time: 12:10
  */
-session_start();
 include_once 'header.php';
 require_once("../Controllers/DBConnect.php");
 require_once("../Controllers/UserAccount.php");

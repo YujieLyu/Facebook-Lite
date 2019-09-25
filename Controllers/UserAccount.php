@@ -9,7 +9,6 @@
 class UserAccount
 {
     private $userID;
-    private $email;
 
     function _construct()
     {

@@ -6,11 +6,14 @@
  * Time: 20:56
  */
 include_once 'header.php';
+require_once("../Controllers/DBConnect.php");
+require_once("../Controllers/FriendRequest.php");
+if (isset($_POST['AddFriend'])):
+    $request = new FriendRequest($_SESSION['UserID']);
+    $request->sendRequest();
 
-//session_start();
-
+endif;
 ?>
-
 
 <div class="container-fluid">
     <div class="row">
@@ -51,14 +54,15 @@ include_once 'header.php';
                                             <?php
                                             if (!isset($_GET['FriendRequest'])):
                                                 ?>
-                                                <form method="post" action="../Controllers/SendFriendRequest.php">
+                                                <form method="post" action="<?php $_SERVER['PHP_SELF'] ?>">
+                                                    <input type="text" hidden name="AddFriend" value="">
                                                     <input type="submit" class="btn btn-outline-dark"
                                                            value="Add friend">
                                                 </form>
                                             <?php
                                             else:
                                                 ?>
-                                                <form method="post" action="../Controllers/SendFriendRequest.php">
+                                                <form method="post" action="<?php $_SERVER['PHP_SELF'] ?>">
                                                     <input type="submit" class="btn btn-dark" value="Request Sent"
                                                            disabled>
                                                 </form>
