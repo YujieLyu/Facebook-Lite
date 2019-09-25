@@ -9,11 +9,11 @@ session_start();
 include_once 'header.php';
 require_once("../Controllers/DBConnect.php");
 require_once("../Controllers/UserAccount.php");
-if (isset($_POST['Email'])){
+if (isset($_POST['Email'])):
     $userAccount=new UserAccount();
     $userAccount->login();
 
-}
+endif;
 ?>
 <h2 class="text-center text-dark mt-5">Welcome to Facebook-Lite!</h2>
 
@@ -40,7 +40,7 @@ if (isset($_POST['Email'])){
 </div>
 
 <?php
-session_destroy();
+//session_destroy();
 include_once 'footer.php'
 ?>
 

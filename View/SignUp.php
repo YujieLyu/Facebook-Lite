@@ -19,19 +19,20 @@ if (isset($_POST['Email'])) {
 <h2 class="text-center text-dark mt-5">Create a new account</h2>
 <p class="text-center">It's quick and easy.</p>
 
-<?php
-if (isset($_GET['emailExist'])):
-    ?>
-    <div class="alert alert-danger">Sorry, this email is already registered.</div>
-<?php
-elseif (isset($_GET['errorCreate'])):
-    ?>
-    <div class="alert alert-danger">Sorry, this email is already registered.</div>
-<?php
-endif;
-?>
+
 <div class="d-flex justify-content-center mt-4">
     <div>
+        <?php
+        if (isset($_GET['emailExist'])):
+            ?>
+            <div class="alert alert-danger">Sorry, this email is already registered.</div>
+        <?php
+        elseif (isset($_GET['errorCreate'])):
+            ?>
+            <div class="alert alert-danger">Sorry, this email is already registered.</div>
+        <?php
+        endif;
+        ?>
         <form class="form" action="<?php $_SERVER['PHP_SELF'] ?>" method="post" autocomplete="on">
             <div class="input-group mb-3">
                 <input type="text" class="form-control mr-2" placeholder="First Name" name="FirstName" id="fname"
@@ -87,6 +88,6 @@ endif;
 
 </div>
 <?php
-session_destroy();
+//session_destroy();
 include_once 'footer.php'
 ?>

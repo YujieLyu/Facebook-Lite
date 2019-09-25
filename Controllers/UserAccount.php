@@ -55,9 +55,9 @@ class UserAccount
     function checkEmailExist()
     {
         $conn = DBConnect::connect();
-        $sql_emailUniqueCheck = "SELECT * FROM UserAccounts WHERE Email='" . $this->email . "'";
+        $sql_emailUniqueCheck = "SELECT * FROM UserAccounts WHERE Email='" . $_POST['Email'] . "'";
         $result = $conn->query($sql_emailUniqueCheck);
-        $is_email_exist = $this->email != "" && $result->num_rows > 0;
+        $is_email_exist = $_POST['Email'] != "" && $result->num_rows > 0;
         return $is_email_exist;
     }
 
@@ -87,7 +87,7 @@ class UserAccount
             }
         }
 
-        $sql_getUserID = "select UserID from UserAccounts where Email='" . $_POST["Email"]. "'";
+        $sql_getUserID = "select UserID from UserAccounts where Email='" . $_POST["Email"] . "'";
         if ($pwd === $_POST["Password"]) {
             $resultID = $conn->query($sql_getUserID);
             if ($resultID->num_rows > 0) {
@@ -102,5 +102,26 @@ class UserAccount
             header("Location: ../View/Login.php?loginError=1");
 
         }
+    }
+
+    function searchUsers()
+    {
+        $conn = DBConnect::connect();
+
+        $searchName = $_POST["SearchRequest"];
+
+        $sql_getUsersResult = "select * from faceBook.UserAccounts where ScreenName='" . $searchName . "' 
+                        or FirstName='" . $searchName . "' or FirstName='" . $searchName . "'";
+        $result_users = $conn->query($sql_getUsersResult);
+
+        if ($result_users->num_rows > 0) {
+            $users_array = $result_users->fetch_all(MYSQLI_ASSOC);
+            $_SESSION['SearchResult'] = $users_array;
+            header("Location: ../View/SearchResult.php");
+        } else {
+//    $_SESSION['SearchResult']=NULL;
+            header("Location: ../View/SearchResult.php?noResult=1");
+        }
+
     }
 }

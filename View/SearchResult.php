@@ -7,7 +7,8 @@
  */
 include_once 'header.php';
 
-session_start();
+//session_start();
+
 ?>
 
 
@@ -24,55 +25,57 @@ session_start();
                         <?php
                         $searchResult = $_SESSION['SearchResult'];
                         if (!isset($_GET['noResult'])):
-                        foreach ($searchResult as $index => $user):
-                            $screenName = $user['ScreenName'];
-                            $firstName=$user['FirstName'];
-                            $lastName=$user['LastName'];
-                            $location = $user['Location'];
-                            $_SESSION["ReceiverID"] = $user['UserID'];
-                            ?>
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col-1 mx-2 ">
-                                        <a href="#">
-                                            <img class="rounded-circle" src="../resources/Yujie.JPG" alt="avatar"
-                                                 style="width: 50px;">
-                                        </a>
-                                    </div>
-                                    <div class="col-6 mx-2">
-                                        <span style="color: #3b5998;"><b><?php echo $screenName ?><br></b></span>
-                                        <span class="text-dark"><?php echo $firstName." ".$lastName ?></span><br>
-                                        <span><?php echo $location ?></span>
-                                    </div>
+                            foreach ($searchResult as $index => $user):
+                                $screenName = $user['ScreenName'];
+                                $firstName = $user['FirstName'];
+                                $lastName = $user['LastName'];
+                                $location = $user['Location'];
+                                $_SESSION["ReceiverID"] = $user['UserID'];
+                                ?>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-1 mx-2 ">
+                                            <a href="#">
+                                                <img class="rounded-circle" src="../resources/Yujie.JPG" alt="avatar"
+                                                     style="width: 50px;">
+                                            </a>
+                                        </div>
+                                        <div class="col-6 mx-2">
+                                            <span style="color: #3b5998;"><b><?php echo $screenName ?><br></b></span>
+                                            <span class="text-dark"><?php echo $firstName . " " . $lastName ?></span><br>
+                                            <span><?php echo $location ?></span>
+                                        </div>
 
-                                    <div class="col-4 h-50 float-right btn-group">
-                                        <!--                                        todo:有问题，需要继续调整按钮显示-->
-                                        <?php
-                                        if (!isset($_GET['FriendRequest'])):
+                                        <div class="col-4 h-50 float-right btn-group">
+                                            <!--                                        todo:有问题，需要继续调整按钮显示-->
+                                            <?php
+                                            if (!isset($_GET['FriendRequest'])):
+                                                ?>
+                                                <form method="post" action="../Controllers/SendFriendRequest.php">
+                                                    <input type="submit" class="btn btn-outline-dark"
+                                                           value="Add friend">
+                                                </form>
+                                            <?php
+                                            else:
+                                                ?>
+                                                <form method="post" action="../Controllers/SendFriendRequest.php">
+                                                    <input type="submit" class="btn btn-dark" value="Request Sent"
+                                                           disabled>
+                                                </form>
+                                            <?php
+                                            endif;
                                             ?>
-                                            <form method="post" action="../Controllers/SendFriendRequest.php">
-                                                <input type="submit" class="btn btn-outline-dark" value="Add friend">
-                                            </form>
-                                        <?php
-                                        else:
-                                            ?>
-                                            <form method="post" action="../Controllers/SendFriendRequest.php">
-                                                <input type="submit" class="btn btn-dark" value="Request Sent" disabled>
-                                            </form>
-                                        <?php
-                                        endif;
-                                        ?>
 
 
-                                        <button class="btn btn-outline-dark">•••</button>
+                                            <button class="btn btn-outline-dark">•••</button>
+                                        </div>
                                     </div>
-                                </div>
 
-                            </li>
-                        <?php endforeach;
+                                </li>
+                            <?php endforeach;
                         else:
-                        echo "No result";
-                        endif;?>
+                            echo "No result";
+                        endif; ?>
                     </ul>
                 </div>
             </div>

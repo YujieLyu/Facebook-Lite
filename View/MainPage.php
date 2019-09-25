@@ -5,8 +5,17 @@
  * Date: 2019-09-11
  * Time: 20:34
  */
-session_start();
 include_once 'header.php';
+require_once("../Controllers/DBConnect.php");
+require_once("../Controllers/FriendRequest.php");
+$user = $_SESSION['User'];
+$userID = $user[0]["UserID"];
+$userName = $user[0]["ScreenName"];
+$userGender = $user[0]['Gender'];
+$userDOB = $user[0]['DoB'];
+$userLocation = $user[0]['Location'];
+$requests = new FriendRequest($userID);
+$requests_array = $requests->getRequest($userID);
 ?>
 
 <div class="container-fluid">
@@ -17,17 +26,9 @@ include_once 'header.php';
             <div class="card rounded-0 border-0 bg-transparent">
                 <!--Name and avatar-->
                 <div class="card-body">
-                    <?php
-                    $user = $_SESSION['User'];
-                    $userName = $user[0]["ScreenName"];
-                    $userGender = $user[0]['Gender'];
-                    $userDOB = $user[0]['DoB'];
-                    $userLocation = $user[0]['Location'];
-                    ?>
-
-                    <!--                    Profile part-->
+                    <!--Profile part-->
                     <div>
-                        <!--                        Avatar and Screen Name-->
+                        <!--Avatar and Screen Name-->
                         <div>
                             <a>
                                 <img class="rounded-circle" src="../resources/Yujie.JPG" alt="avatar"
@@ -151,11 +152,9 @@ include_once 'header.php';
                     <h6 class="text-dark">New friend requests</h6>
                     <ul class="list-group mx-n3">
                         <?php
-                        include '../Controllers/GetFriendRequest.php';
-                        $requests = $_SESSION['FriendRequests'];
-                        if ($requests !== null):
-                            foreach ($requests as $index => $request):
-                                $senderName = $requests[$index]['ScreenName'];
+                        if ($requests_array !== null):
+                            foreach ($requests_array as $index => $request):
+                                $senderName = $requests_array[$index]['ScreenName'];
                                 ?>
                                 <li class="list-group-item  border border-0">
                                     <img class="rounded-circle mr-2" src="../resources/Yujie.JPG"
