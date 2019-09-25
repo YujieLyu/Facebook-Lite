@@ -9,13 +9,28 @@
 include_once 'header.php';
 require_once("../Controllers/DBConnect.php");
 require_once("../Controllers/UserAccount.php");
-$createAccount = new UserAccount();
-$userID=$createAccount->createAccount();
-session_start();
+
+if (isset($_POST['Email'])){
+    $createAccount = new UserAccount();
+//    $userID=$createAccount->createAccount();
+        $createAccount->createAccountResult();
+}
+//session_start();
 ?>
 <h2 class="text-center text-dark mt-5">Create a new account</h2>
 <p class="text-center">It's quick and easy.</p>
 
+<?php
+if (isset($_GET['emailExist'])):
+    ?>
+    <div class="alert alert-danger">Sorry, this email is already registered.</div>
+<?php
+elseif(isset($_GET['errorCreate'])):
+    ?>
+    <div class="alert alert-danger">Sorry, this email is already registered.</div>
+<?php
+endif;
+?>
 <div class="d-flex justify-content-center mt-4">
     <div>
         <form class="form" action="<?php  $_SERVER['PHP_SELF'] ?>" method="post" autocomplete="on">

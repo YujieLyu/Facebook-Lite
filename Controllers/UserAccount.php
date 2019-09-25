@@ -63,6 +63,17 @@ class UserAccount
         return $is_email_exist;
     }
 
+    function createAccountResult(){
+        $outcome=self::createAccount();
+        if (is_numeric($outcome)) {
+            header("Location:../View/MainPage.php");
+        } else if ($outcome == "Email is invalid") {
+            header("Location:../View/SignUp.php?emailExist=1");
+        }else{
+            header("Location:../View/SignUp.php?errorCreate=".$outcome);
+        }
+    }
+
     function login(){
         $conn = DBConnect::connect();
 
