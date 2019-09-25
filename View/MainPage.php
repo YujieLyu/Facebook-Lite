@@ -5,13 +5,8 @@
  * Date: 2019-09-11
  * Time: 20:34
  */
-include_once 'header.php';
-
 session_start();
-
-//$friendRequests=new FriendRequest($_POST)
-
-include '../Controllers/GetPost.php';
+include_once 'header.php';
 ?>
 
 <div class="container-fluid">
@@ -23,7 +18,6 @@ include '../Controllers/GetPost.php';
                 <!--Name and avatar-->
                 <div class="card-body">
                     <?php
-                    include '../Controllers/GetUser.php';
                     $user = $_SESSION['User'];
                     $userName = $user[0]["ScreenName"];
                     $userGender = $user[0]['Gender'];
@@ -161,7 +155,7 @@ include '../Controllers/GetPost.php';
                         $requests = $_SESSION['FriendRequests'];
                         if ($requests !== null):
                             foreach ($requests as $index => $request):
-                                $senderName = $requests[$index ]['ScreenName'];
+                                $senderName = $requests[$index]['ScreenName'];
                                 ?>
                                 <li class="list-group-item  border border-0">
                                     <img class="rounded-circle mr-2" src="../resources/Yujie.JPG"
@@ -170,14 +164,13 @@ include '../Controllers/GetPost.php';
                                     <div class="btn-group mt-3">
                                         <input type="submit" class="btn btn-outline-secondary mx-3" value="No">
                                         <input type="submit" class="btn btn-outline text-white"
-                                                style="background: #3b5998;" value="Yes">
+                                               style="background: #3b5998;" value="Yes">
                                     </div>
                                 </li>
                             <?php
                             endforeach;
                         endif;
                         ?>
-
 
 
                     </ul>

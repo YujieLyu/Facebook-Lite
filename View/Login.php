@@ -5,15 +5,21 @@
  * Date: 2019-09-17
  * Time: 12:10
  */
-include_once 'header.php';
-
 session_start();
+include_once 'header.php';
+require_once("../Controllers/DBConnect.php");
+require_once("../Controllers/UserAccount.php");
+if (isset($_POST['Email'])){
+    $userAccount=new UserAccount();
+    $userAccount->login();
+
+}
 ?>
 <h2 class="text-center text-dark mt-5">Welcome to Facebook-Lite!</h2>
 
 <div class="d-flex justify-content-center mt-5">
     <div>
-        <form class="form" method="post" action="../Controllers/LoginCheck.php">
+        <form class="form" method="post" action="<?php $_SERVER['PHP_SELF'] ?>">
             <input type="text" class="form-control mb-3" placeholder="Email" name="Email">
             <input type="password" class="form-control mb-3" placeholder="Password" name="Password">
 
@@ -34,6 +40,7 @@ session_start();
 </div>
 
 <?php
+session_destroy();
 include_once 'footer.php'
 ?>
 

@@ -5,17 +5,16 @@
  * Date: 2019-09-17
  * Time: 23:41
  */
-
+session_start();
 include_once 'header.php';
 require_once("../Controllers/DBConnect.php");
 require_once("../Controllers/UserAccount.php");
 
-if (isset($_POST['Email'])){
+if (isset($_POST['Email'])) {
     $createAccount = new UserAccount();
-//    $userID=$createAccount->createAccount();
-        $createAccount->createAccountResult();
+    $createAccount->createAccountResult();
 }
-//session_start();
+
 ?>
 <h2 class="text-center text-dark mt-5">Create a new account</h2>
 <p class="text-center">It's quick and easy.</p>
@@ -25,7 +24,7 @@ if (isset($_GET['emailExist'])):
     ?>
     <div class="alert alert-danger">Sorry, this email is already registered.</div>
 <?php
-elseif(isset($_GET['errorCreate'])):
+elseif (isset($_GET['errorCreate'])):
     ?>
     <div class="alert alert-danger">Sorry, this email is already registered.</div>
 <?php
@@ -33,7 +32,7 @@ endif;
 ?>
 <div class="d-flex justify-content-center mt-4">
     <div>
-        <form class="form" action="<?php  $_SERVER['PHP_SELF'] ?>" method="post" autocomplete="on">
+        <form class="form" action="<?php $_SERVER['PHP_SELF'] ?>" method="post" autocomplete="on">
             <div class="input-group mb-3">
                 <input type="text" class="form-control mr-2" placeholder="First Name" name="FirstName" id="fname"
                        autofocus
@@ -88,5 +87,6 @@ endif;
 
 </div>
 <?php
+session_destroy();
 include_once 'footer.php'
 ?>

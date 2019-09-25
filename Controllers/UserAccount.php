@@ -9,26 +9,10 @@
 class UserAccount
 {
     private $userID;
-    private $firstName;
-    private $lastName;
-    private $screenName;
     private $email;
-    private $password;
-    private $location;
-    private $dob;
-    private $gender;
 
     function _construct()
     {
-//        $firstName, $lastName, $screenName, $email, $password, $location, $dob, $gender
-//        $this->firstName = $firstName;
-//        $this->lastName = $lastName;
-//        $this->screenName = $screenName;
-//        $this->email = $email;
-//        $this->password = $password;
-//        $this->location = $location;
-//        $this->dob = $dob;
-//        $this->gender = $gender;
     }
 
     function createAccount()
@@ -36,21 +20,35 @@ class UserAccount
         $conn = DBConnect::connect();
         $sql_createNewAccount = "insert into UserAccounts (FirstName,LastName,ScreenName,Email,Password,Location,DoB,Gender)
      values('$_POST[FirstName]','$_POST[LastName]','$_POST[ScreenName]','$_POST[Email]','$_POST[Password]','$_POST[Location]','$_POST[DateOfBirth]','$_POST[Gender]')";
-        $this->email = $_POST['Email'];
-        $sql_getUserID = "select UserID from UserAccounts where Email='" . $this->email . "'";
+        $sql_getUserID = "select UserID from UserAccounts where Email='" . $_POST['Email'] . "'";
 
         if (!self::checkEmailExist()) {
             if ($conn->query($sql_createNewAccount)) {
                 $result = $conn->query($sql_getUserID);
                 $row = $result->fetch_assoc();
-                $userID = $row['UserID'];
-                return $userID;
+                $this->userID = $row['UserID'];
+                return $this->userID;
             } else {
 
                 return "Error:" . $sql_createNewAccount . "<br>" . $conn->error;
             }
         } else {
             return "Email is invalid";
+        }
+    }
+
+    function getUser()
+    {
+        $conn = DBConnect::connect();
+        $sql_getUser = "select * from faceBook.UserAccounts where UserID='" . $this->userID . "'";
+        $result_user = $conn->query($sql_getUser);
+        $user_details[] = array();
+
+        if ($result_user->num_rows > 0) {
+            $user_details = $result_user->fetch_all(MYSQLI_ASSOC);
+            return $user_details;
+        } else {
+            return null;
         }
     }
 
@@ -63,19 +61,46 @@ class UserAccount
         return $is_email_exist;
     }
 
-    function createAccountResult(){
-        $outcome=self::createAccount();
+    function createAccountResult()
+    {
+        $outcome = self::createAccount();
         if (is_numeric($outcome)) {
+            $_SESSION['User'] = self::getUser();
             header("Location:../View/MainPage.php");
         } else if ($outcome == "Email is invalid") {
             header("Location:../View/SignUp.php?emailExist=1");
-        }else{
-            header("Location:../View/SignUp.php?errorCreate=".$outcome);
+        } else {
+            header("Location:../View/SignUp.php?errorCreate=" . $outcome);
         }
     }
 
-    function login(){
+    function login()
+    {
         $conn = DBConnect::connect();
+        $sql_loginCheck = "select Password from UserAccounts where Email= '" . $_POST["Email"] . "'";
+        $result = $conn->query($sql_loginCheck);
+        $pwd = 0;
 
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $pwd = $row['Password'];
+            }
+        }
+
+        $sql_getUserID = "select UserID from UserAccounts where Email='" . $_POST["Email"]. "'";
+        if ($pwd === $_POST["Password"]) {
+            $resultID = $conn->query($sql_getUserID);
+            if ($resultID->num_rows > 0) {
+                while ($rowID = $resultID->fetch_assoc()) {
+                    $this->userID = $rowID['UserID'];
+                }
+            }
+            $_SESSION['User'] = self::getUser();
+            header("Location: ../View/MainPage.php"); /* Redirect browser */
+            exit();
+        } else {
+            header("Location: ../View/Login.php?loginError=1");
+
+        }
     }
 }
