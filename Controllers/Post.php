@@ -8,17 +8,15 @@
 
 class Post
 {
-//    private $userID;
     function _construct()
     {
-//        $this->userID=$userID;
     }
 
     function createPost($userID)
     {
         $conn = DBConnect::connect();
-//        $userID = $_SESSION['User'][0]['UserID'];
-        $sql_createPost = "insert into UserPosts(Content,PostTime,UserID) values ('$_POST[Post]',now(),$userID)";
+        $postContent =self::formatInput ($_POST['Post']);
+        $sql_createPost = "insert into UserPosts(Content,PostTime,UserID) values ('$postContent',now(),$userID)";
 
         if ($conn->query($sql_createPost)) {
 
@@ -26,6 +24,17 @@ class Post
         } else {
             echo "post failed:" . $conn->error;
         }
+    }
+
+    function formatInput($input)
+    {
+        $key = "'";
+
+        if (strpos($input, $key)) {
+            $input=str_ireplace($key, "\'", $input);
+        }
+        return $input;
+
     }
 
     function getPosts($userID)

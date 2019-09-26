@@ -9,10 +9,10 @@
 class FriendRequest
 {
 //    private $senderID;
-    private $receiverID;
+//    private $receiverID;
 
     function _construct($receiverID){
-       $this->receiverID=$receiverID;
+//       $this->receiverID=$receiverID;
     }
 
     function sendRequest(){

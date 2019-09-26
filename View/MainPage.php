@@ -20,7 +20,7 @@ $posts=$userPost->getPosts($userID);
 if (isset($_POST['Post'])):
 $userPost->createPost($userID);
 endif;
-$requests = new FriendRequest($userID);
+$requests = new FriendRequest();
 $requests_array = $requests->getRequest($userID);
 ?>
 
