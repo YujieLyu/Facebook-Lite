@@ -9,7 +9,7 @@ include_once 'header.php';
 require_once("../Controllers/DBConnect.php");
 require_once("../Controllers/FriendRequest.php");
 if (isset($_POST['AddFriend'])):
-    $request = new FriendRequest($_SESSION['UserID']);
+    $request = new FriendRequest();
     $request->sendRequest();
 
 endif;

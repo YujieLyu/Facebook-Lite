@@ -15,7 +15,7 @@ class Post
     function createPost($userID)
     {
         $conn = DBConnect::connect();
-        $postContent =self::formatInput ($_POST['Post']);
+        $postContent = self::formatInput($_POST['Post']);
         $sql_createPost = "insert into UserPosts(Content,PostTime,UserID) values ('$postContent',now(),$userID)";
 
         if ($conn->query($sql_createPost)) {
@@ -31,7 +31,7 @@ class Post
         $key = "'";
 
         if (strpos($input, $key)) {
-            $input=str_ireplace($key, "\'", $input);
+            $input = str_ireplace($key, "\'", $input);
         }
         return $input;
 

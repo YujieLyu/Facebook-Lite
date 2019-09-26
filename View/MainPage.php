@@ -8,17 +8,17 @@
 include_once 'header.php';
 require_once("../Controllers/DBConnect.php");
 require_once("../Controllers/FriendRequest.php");
-require_once ("../Controllers/Post.php");
+require_once("../Controllers/Post.php");
 $user = $_SESSION['User'];
 $userID = $user[0]["UserID"];
 $userName = $user[0]["ScreenName"];
 $userGender = $user[0]['Gender'];
 $userDOB = $user[0]['DoB'];
 $userLocation = $user[0]['Location'];
-$userPost=new Post();
-$posts=$userPost->getPosts($userID);
+$userPost = new Post();
+$posts = $userPost->getPosts($userID);
 if (isset($_POST['Post'])):
-$userPost->createPost($userID);
+    $userPost->createPost($userID);
 endif;
 $requests = new FriendRequest();
 $requests_array = $requests->getRequest($userID);
@@ -60,7 +60,7 @@ $requests_array = $requests->getRequest($userID);
                             </div>
                             <div class="row">
                                 <i class="col-1 fas fa-user-friends"></i>
-                                <p class="col-7">Friends <?php ?></p>
+                                <p class="col-7">Friends </p>
                             </div>
                         </div>
 
@@ -161,23 +161,39 @@ $requests_array = $requests->getRequest($userID);
                         if ($requests_array !== null):
                             foreach ($requests_array as $index => $request):
                                 $senderName = $requests_array[$index]['ScreenName'];
-                                ?>
-                                <li class="list-group-item  border border-0">
-                                    <img class="rounded-circle mr-2" src="../resources/Yujie.JPG"
-                                         alt="new-friends-avatar"
-                                         style="width: 40px;"> <?php echo $senderName ?> <br>
-                                    <div class="btn-group mt-3">
-                                        <input type="submit" class="btn btn-outline-secondary mx-3" value="No">
-                                        <input type="submit" class="btn btn-outline text-white"
-                                               style="background: #3b5998;" value="Yes">
-                                    </div>
-                                </li>
-                            <?php
+                                $senderID = $requests_array[$index]['SenderID'];
+                                $is_friend = $requests_array[$index]['is_Friendship'];
+                                if (!$is_friend):?>
+                                    <li class="list-group-item  border border-0">
+                                        <img class="rounded-circle mr-2" src="../resources/Yujie.JPG"
+                                             alt="new-friends-avatar"
+                                             style="width: 40px;"> <?php echo $senderName ?> <br>
+
+                                        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+                                            <div class="btn-group mt-3">
+                                                <input type="submit" name="No" class="btn btn-outline-secondary mx-3"
+                                                       value="No" onClick="refreshPage()">
+                                                <input type="submit" name="Yes" class="btn btn-outline text-white"
+                                                       style="background: #3b5998;" value="Yes" onClick="refreshPage()">
+                                            </div>
+                                        </form>
+
+                                    </li>
+                                <?php
+                                endif;
+                                if (isset($_POST['Yes'])):
+                                    $requests->acceptRequest($senderID, $userID);
+                                elseif (isset($_POST['No'])):
+                                    $requests->deleteRequest($senderID, $userID);
+                                endif;
                             endforeach;
                         endif;
                         ?>
-
-
+                        <script>
+                            function refreshPage() {
+                                window.location.reload();
+                            }
+                        </script>
                     </ul>
                 </div>
             </div>

@@ -25,6 +25,7 @@ class FriendRequest
             echo "Failed!";
         }
     }
+
     function getRequest($receiverID){
         $conn=DBConnect::connect();
         $sql_getFriendRequest="select * from faceBook.UserAccounts inner join faceBook.Friendship on UserID=SenderID where ReceiverID=".$receiverID;
@@ -34,17 +35,29 @@ class FriendRequest
 
         if ($result_friendshipRequest->num_rows>0){
             $request_array=$result_friendshipRequest->fetch_all(MYSQLI_ASSOC);
+
             return $request_array;
         }
         return NULL;
     }
 
-    function processRequest(){
-        $senderID=$_SESSION['SenderID'];
-        $receiverID=$_SESSION['UserID'];
-        $sql_deleteRequest="delete from faceBook.Friendship where senderID=".$senderID." and ReceiverID=".$receiverID;
+    function acceptRequest($senderID, $receiverID){
+        $conn=DBConnect::connect();
+        $sql_agreeRequest="update faceBook.Friendship set is_Friendship=true where SenderID=".$senderID." and ReceiverID=".$receiverID;
+        if (!$conn->query($sql_agreeRequest)){
+            echo "Update failed:".$conn->error;
+        }
 
     }
+
+    function deleteRequest($senderID,$receiverID){
+        $conn=DBConnect::connect();
+        $sql_deleteRequest="delete from faceBook.Friendship where senderID=".$senderID." and ReceiverID=".$receiverID;
+        if (!$conn->query($sql_deleteRequest)){
+            echo "Update failed:".$conn->error;
+        }
+    }
+
 
 
 }
