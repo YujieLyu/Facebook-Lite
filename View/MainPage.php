@@ -28,7 +28,7 @@ $requests_array = $requests->getRequest($userID);
 
     <div class="row">
         <!--Left Part-->
-        <div class="col-3">
+        <div class="col-3" id="leftPanel">
             <div class="card rounded-0 border-0 bg-transparent">
                 <!--Name and avatar-->
                 <div class="card-body">
@@ -76,7 +76,7 @@ $requests_array = $requests->getRequest($userID);
 
 
         <!--Middle Part-->
-        <div class="col-6 mt-3">
+        <div class="col-6 mt-3" id="middlePanel">
             <div class="card rounded-0 shadow-sm mb-3 bg-white">
 
                 <!--What's on your mind?-->
@@ -87,7 +87,12 @@ $requests_array = $requests->getRequest($userID);
                                   placeholder="What's on your mind?" style="resize: none"></textarea>
 
                         <input type="submit" class="btn text-white mt-2 border-0 float-sm-right px-2"
-                               style="background: #3b5998">
+                               style="background: #3b5998" onclick="">
+                        <script>
+                            function refreshPosts() {
+                                $("#divId").load(location.href + " #divId>*", "");
+                            }
+                        </script>
                     </form>
                 </div>
             </div>
@@ -99,6 +104,7 @@ $requests_array = $requests->getRequest($userID);
                 foreach ($posts as $index => $value) :
                     $post_time = $value['PostTime'];
                     $post_content = $value['Content'];
+                    $post_name=$value['ScreenName'];
 
                     ?>
                     <div class="card rounded-0 shadow-sm mb-3 bg-white">
@@ -109,7 +115,7 @@ $requests_array = $requests->getRequest($userID);
                                          style="width: 40px;">
                                 </div>
                                 <div class="col-3">
-                                    <span style="color: #3b5998"><b><?php echo $userName; ?><br></b></span>
+                                    <span style="color: #3b5998"><b><?php echo $post_name; ?><br></b></span>
                                     <span><small><?php echo $post_time ?></small></span>
                                 </div>
                             </div>
@@ -152,7 +158,7 @@ $requests_array = $requests->getRequest($userID);
 
 
         <!--Right Part-->
-        <div class="col-3 mt-3">
+        <div class="col-3 mt-3" id="rightPanel">
             <div class="card rounded-0 bg-light text-sm">
                 <div class="card-body">
                     <h6 class="text-dark">New friend requests</h6>
@@ -170,11 +176,11 @@ $requests_array = $requests->getRequest($userID);
                                              style="width: 40px;"> <?php echo $senderName ?> <br>
 
                                         <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
-                                            <div class="btn-group mt-3">
-                                                <input type="submit" name="No" class="btn btn-outline-secondary mx-3"
-                                                       value="No" onClick="refreshPage()">
-                                                <input type="submit" name="Yes" class="btn btn-outline text-white"
-                                                       style="background: #3b5998;" value="Yes" onClick="refreshPage()">
+                                            <div class="btn-group mt-3" id="processRequest">
+                                                <button type="submit" name="No" class="btn btn-outline-secondary mx-3"
+                                                       value="No" onClick="refreshAcceptRequest()">
+                                                <button type="submit" name="Yes" class="btn btn-outline text-white"
+                                                       style="background: #3b5998;" value="Yes" onClick="refreshAcceptRequest()">
                                             </div>
                                         </form>
 
@@ -190,8 +196,8 @@ $requests_array = $requests->getRequest($userID);
                         endif;
                         ?>
                         <script>
-                            function refreshPage() {
-                                window.location.reload();
+                              function refreshAcceptRequest(){
+                                // location.reload(true);
                             }
                         </script>
                     </ul>
