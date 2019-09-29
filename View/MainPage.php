@@ -21,7 +21,14 @@ if (isset($_POST['Post'])):
     $userPost->createPost($userID);
 endif;
 $requests = new FriendRequest();
-$requests_array = $requests->getRequest($userID);
+
+if (isset($_POST['Yes'])):
+    $_SESSION['request_array']=$requests->acceptRequest($_SESSION['SenderID'], $userID);
+elseif (isset($_POST['No'])):
+    $_SESSION['request_array']=$requests->deleteRequest($_SESSION['SenderID'], $userID);
+else:
+    $_SESSION['request_array'] = $requests->getRequest($userID);
+endif;
 ?>
 
 <div class="container-fluid">
@@ -104,7 +111,7 @@ $requests_array = $requests->getRequest($userID);
                 foreach ($posts as $index => $value) :
                     $post_time = $value['PostTime'];
                     $post_content = $value['Content'];
-                    $post_name=$value['ScreenName'];
+                    $post_name = $value['ScreenName'];
 
                     ?>
                     <div class="card rounded-0 shadow-sm mb-3 bg-white">
@@ -164,10 +171,11 @@ $requests_array = $requests->getRequest($userID);
                     <h6 class="text-dark">New friend requests</h6>
                     <ul class="list-group mx-n3">
                         <?php
+                        $requests_array=$_SESSION['request_array'];
                         if ($requests_array !== null):
                             foreach ($requests_array as $index => $request):
                                 $senderName = $requests_array[$index]['ScreenName'];
-                                $senderID = $requests_array[$index]['SenderID'];
+                                $_SESSION['SenderID'] = $requests_array[$index]['SenderID'];
                                 $is_friend = $requests_array[$index]['is_Friendship'];
                                 if (!$is_friend):?>
                                     <li class="list-group-item  border border-0">
@@ -175,28 +183,35 @@ $requests_array = $requests->getRequest($userID);
                                              alt="new-friends-avatar"
                                              style="width: 40px;"> <?php echo $senderName ?> <br>
 
-                                        <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+                                        <form id="processRequest" action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
                                             <div class="btn-group mt-3" id="processRequest">
-                                                <button type="submit" name="No" class="btn btn-outline-secondary mx-3"
-                                                       value="No" onClick="refreshAcceptRequest()">
-                                                <button type="submit" name="Yes" class="btn btn-outline text-white"
-                                                       style="background: #3b5998;" value="Yes" onClick="refreshAcceptRequest()">
+                                                <input id="no" type="submit" name="No"
+                                                       class="btn btn-outline-secondary mx-3"
+                                                       value="No">
+                                                <input id="yes" type="submit" name="Yes"
+                                                       class="btn btn-outline text-white"
+                                                       style="background: #3b5998;" value="Yes">
                                             </div>
                                         </form>
+                                        <!--For test-->
+                                        <?php
+                                        echo rand(0, 100);
+                                        ?>
+                                        <script>
+                                            $("#processRequest").submit(function () {
+                                                $("#rightPanel").load(" #rightPanel");
 
+                                            });
+                                        </script>
                                     </li>
                                 <?php
                                 endif;
-                                if (isset($_POST['Yes'])):
-                                    $requests->acceptRequest($senderID, $userID);
-                                elseif (isset($_POST['No'])):
-                                    $requests->deleteRequest($senderID, $userID);
-                                endif;
+
                             endforeach;
                         endif;
                         ?>
                         <script>
-                              function refreshAcceptRequest(){
+                            function refreshAcceptRequest() {
                                 // location.reload(true);
                             }
                         </script>
