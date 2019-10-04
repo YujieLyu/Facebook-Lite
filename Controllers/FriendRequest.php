@@ -51,12 +51,26 @@ where
         return NULL;
     }
 
+    function processRequest(){
+        if (isset($_POST['Yes'])){
+            $senderID=$_POST['senderID'];
+            $receiverID=$_SESSION['User'][0]['UserID'];
+            return self::acceptRequest($senderID,$receiverID);
+        }elseif (isset($_POST['No'])){
+            $senderID=$_POST['senderID'];
+            $receiverID=$_SESSION['User'][0]['UserID'];
+            return self::deleteRequest($senderID,$receiverID);
+        }
+    }
+
     function acceptRequest($senderID, $receiverID)
     {
         $conn = DBConnect::connect();
         $sql_agreeRequest = "update faceBook.Friendship set is_Friendship=true where SenderID=" . $senderID . " and ReceiverID=" . $receiverID;
         if ($conn->query($sql_agreeRequest)) {
-            return self::getRequest($senderID, $receiverID);
+//            http_redirect("../View/MainPage.php");
+            return self::getRequest( $receiverID);
+//            header("Location:../View/MainPage.php");
         } else {
             return "Update failed:" . $conn->error;
         }
@@ -68,7 +82,7 @@ where
         $conn = DBConnect::connect();
         $sql_deleteRequest = "delete from faceBook.Friendship where senderID=" . $senderID . " and ReceiverID=" . $receiverID;
         if ($conn->query($sql_deleteRequest)) {
-            return self::getRequest($senderID, $receiverID);
+            return self::getRequest( $receiverID);
         } else {
             return "Update failed:" . $conn->error;
         }
