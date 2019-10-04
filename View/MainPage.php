@@ -21,8 +21,6 @@ if (isset($_POST['Post'])):
     $userPost->createPost($userID);
 endif;
 $requests = new FriendRequest();
-
-
 ?>
 
 <div class="container-fluid">
@@ -88,12 +86,7 @@ $requests = new FriendRequest();
                                   placeholder="What's on your mind?" style="resize: none"></textarea>
 
                         <input type="submit" class="btn text-white mt-2 border-0 float-sm-right px-2"
-                               style="background: #3b5998" onclick="">
-                        <script>
-                            function refreshPosts() {
-                                $("#divId").load(location.href + " #divId>*", "");
-                            }
-                        </script>
+                               style="background: #3b5998">
                     </form>
                 </div>
             </div>
@@ -168,9 +161,10 @@ $requests = new FriendRequest();
                         if (!isset($_POST['Yes']) && !isset($_POST['No'])) :
                             $_SESSION['request_array'] = $requests->getRequest($userID);
                             $requests_array = $_SESSION['request_array'];
-                         else :
-                            $requests_array= $requests->processRequest();
+                        else :
+                            $requests_array = $requests->processRequest();
                         endif;
+
                         if ($requests_array !== null):
                             foreach ($requests_array
                                      as $index => $request):
@@ -183,9 +177,10 @@ $requests = new FriendRequest();
                                              alt="new-friends-avatar"
                                              style="width: 40px;"> <?php echo $senderName ?> <br>
 
-                                        <form id="form<?php echo $senderID ?>" method="post"
+                                        <form method="post"
                                               action="<?php $_SERVER['PHP_SELF'] ?>">
                                             <div class="btn-group mt-3" id="processRequest">
+                                                <!--Should provide the sender id by the form or the form dont know which one should be pass-->
                                                 <input id="senderid" name="senderID" value="<?php echo $senderID ?>"
                                                        type="hidden">
                                                 <input id="no" type="submit" name="No"
@@ -197,23 +192,6 @@ $requests = new FriendRequest();
                                                        value="Yes">
                                             </div>
                                         </form>
-
-                                        <!--                                        --><?php
-                                        //                                        if (isset($_POST['Yes'])):
-                                        //                                            $_SESSION['request_array'] = $requests->acceptRequest($senderID, $userID);
-                                        //                                            $_POST['Yes'] = null;
-                                        //                                        elseif (isset($_POST['No'])):
-                                        //                                            $_SESSION['request_array'] = $requests->deleteRequest($senderID, $userID);
-                                        //                                            $_POST['Yes'] = null;
-                                        //                                        endif;
-                                        //
-                                        ?>
-                                        <!--                                        <script>-->
-                                        <!--                                            $("#processRequest").submit(function () {-->
-                                        <!--                                                $("#rightPanel").load(" #rightPanel");-->
-                                        <!---->
-                                        <!--                                            });-->
-                                        <!--                                        </script>-->
                                     </li>
                                 <?php
                                 endif;
