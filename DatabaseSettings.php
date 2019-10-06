@@ -53,8 +53,7 @@ $sql_createUserPosts = "CREATE TABLE UserPosts(
     PostTime DATETIME NOT NULL, 
     UserID INT(6) UNSIGNED,
     PRIMARY KEY (PostID),
-    FOREIGN KEY (UserID) REFERENCES UserAccounts (UserID)
-)";
+    FOREIGN KEY (UserID) REFERENCES UserAccounts (UserID))";
 
 if ($conn->query($sql_createUserPosts) === TRUE) {
     echo "Table UserPosts created successfully";
@@ -79,6 +78,22 @@ if ($conn->query($sql_createFriendship)==TRUE){
 }else {
     echo "Error creating table:" . $conn->error;
 }
+
+$sql_createLike ="CREATE TABLE PostLikes(
+  PostLikeID INT(6) UNSIGNED AUTO_INCREMENT,
+  PostID INT(6) UNSIGNED,
+  UserID INT(6) UNSIGNED,
+  PRIMARY KEY (PostLikeID),
+  FOREIGN KEY (PostID) REFERENCES UserPosts(PostID),
+  FOREIGN KEY (UserID) REFERENCES UserAccounts(UserID) 
+)";
+
+if ($conn->query($sql_createLike)==true){
+    echo "Table PostLike created successfully";
+}else{
+    echo "Error creating table".$conn->error;
+}
+
 
 
 $conn->close();

@@ -13,18 +13,23 @@ class Post
     {
     }
 
-    function createPost($userID)
+    function createPost()
     {
         $conn = DBConnect::connect();
-        $postContent = self::formatInput($_POST['Post']);
-        $sql_createPost = "insert into UserPosts(Content,PostTime,UserID) values ('$postContent',now(),$userID)";
+        $userID = $_POST['userID'];
+        if ($_POST['Post'] != null) {
+            $postContent = self::formatInput($_POST['Post']);
+            $sql_createPost = "insert into UserPosts(Content,PostTime,UserID) values ('$postContent',now(),$userID)";
 
-        if ($conn->query($sql_createPost)) {
-
-            header("Location: ../View/MainPage.php");
-        } else {
-            echo "post failed:" . $conn->error;
+            if ($conn->query($sql_createPost)) {
+                header("Location: View/MainPage.php");
+            } else {
+                echo "post failed:" . $conn->error;
+            }
+        }else{
+            header("Location: View/MainPage.php");
         }
+
     }
 
     function formatInput($input)
