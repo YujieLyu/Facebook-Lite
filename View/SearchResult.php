@@ -8,11 +8,8 @@
 include_once 'header.php';
 require_once("../Controllers/DBConnect.php");
 require_once("../Controllers/FriendRequest.php");
-if (isset($_POST['AddFriend'])):
-    $request = new FriendRequest();
-    $request->sendRequest();
-
-endif;
+$user = $_SESSION['User'];
+$userID = $user[0]["UserID"]
 ?>
 
 <div class="container-fluid">
@@ -28,12 +25,12 @@ endif;
                         <?php
                         $searchResult = $_SESSION['SearchResult'];
                         if (!isset($_GET['noResult'])):
-                            foreach ($searchResult as $index => $user):
-                                $screenName = $user['ScreenName'];
-                                $firstName = $user['FirstName'];
-                                $lastName = $user['LastName'];
-                                $location = $user['Location'];
-                                $_SESSION["ReceiverID"] = $user['UserID'];
+                            foreach ($searchResult as $index => $userInResult):
+                                $screenName = $userInResult['ScreenName'];
+                                $firstName = $userInResult['FirstName'];
+                                $lastName = $userInResult['LastName'];
+                                $location = $userInResult['Location'];
+                                $receiverID = $userInResult['UserID'];
                                 ?>
                                 <li class="list-group-item">
                                     <div class="row">
@@ -54,23 +51,21 @@ endif;
                                             <?php
                                             if (!isset($_GET['FriendRequest'])):
                                                 ?>
-                                                <form method="post" action="<?php $_SERVER['PHP_SELF'] ?>">
-                                                    <input type="text" hidden name="AddFriend" value="">
+                                                <form method="post" action="../router.php">
+                                                    <input type="hidden" name="AddFriend" value="">
+                                                    <input type="hidden" name="senderID" value="<?php echo $userID?>">
+                                                    <input type="hidden" name="receiverID" value="<?php echo $receiverID ?>">
                                                     <input type="submit" class="btn btn-outline-dark"
                                                            value="Add friend">
                                                 </form>
                                             <?php
                                             else:
                                                 ?>
-                                                <form method="post" action="<?php $_SERVER['PHP_SELF'] ?>">
                                                     <input type="submit" class="btn btn-dark" value="Request Sent"
                                                            disabled>
-                                                </form>
                                             <?php
                                             endif;
                                             ?>
-
-
                                             <button class="btn btn-outline-dark">•••</button>
                                         </div>
                                     </div>

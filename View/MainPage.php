@@ -19,6 +19,7 @@ $userLocation = $user[0]['Location'];
 $userPost = new Post();
 $posts = $userPost->getPosts($userID);
 $requests = new FriendRequest();
+$requests_array = $requests->getRequest($userID);
 ?>
 
 <div class="container-fluid">
