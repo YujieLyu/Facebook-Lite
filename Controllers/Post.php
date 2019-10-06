@@ -17,6 +17,7 @@ class Post
     {
         $conn = DBConnect::connect();
         $userID = $_POST['userID'];
+        //Avoid empty post content to be inserted
         if ($_POST['Post'] != null) {
             $postContent = self::formatInput($_POST['Post']);
             $sql_createPost = "insert into UserPosts(Content,PostTime,UserID) values ('$postContent',now(),$userID)";
