@@ -81,7 +81,7 @@ if ($posts != NULL):
                         <input type="hidden" name="userID" value="<?php echo $userID ?>">
                         <input type="submit" name="Like" class="btn btn-light w-50  text-dark" value="Like">
                         <input type="button" class="btn btn-light w-50 text-dark" value="Comment"
-                               onclick="showReplyBox()">
+                               onclick="showReplyBox<?php echo $comment_no ?>()">
                     </form>
 
                 </div>
@@ -96,11 +96,11 @@ if ($posts != NULL):
                         <input type="submit" name="Comment"
                                class="btn text-white mt-2 border-0 float-sm-right px-2"
                                style="background: #3b5998"
-                               value="Reply">
+                               value="Reply" >
                     </form>
                 </div>
                 <script>
-                    function showReplyBox() {
+                    function showReplyBox<?php echo $comment_no ?>() {
                         var x = document.getElementById("replyBox<?php echo $comment_no ?>");
                         if (x.style.display === "none") {
                             x.style.display = "block";
