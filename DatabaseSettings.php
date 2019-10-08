@@ -40,7 +40,7 @@ $sql_createUserAccounts = "CREATE TABLE UserAccounts(
     PRIMARY KEY(UserID)
      )";
 
-if ($conn->query($sql_createUserAccounts) === TRUE) {
+if ($conn->query($sql_createUserAccounts)) {
     echo "Table UserAccounts created successfully";
 } else {
     echo "Error creating table:" . $conn->error;
@@ -55,7 +55,7 @@ $sql_createUserPosts = "CREATE TABLE UserPosts(
     PRIMARY KEY (PostID),
     FOREIGN KEY (UserID) REFERENCES UserAccounts (UserID))";
 
-if ($conn->query($sql_createUserPosts) === TRUE) {
+if ($conn->query($sql_createUserPosts)) {
     echo "Table UserPosts created successfully";
 } else {
     echo "Error creating table:" . $conn->error;
@@ -73,28 +73,44 @@ $sql_createFriendship = "CREATE TABLE Friendship(
   FOREIGN KEY (ReceiverID) REFERENCES UserAccounts (UserID)
 )";
 
-if ($conn->query($sql_createFriendship)==TRUE){
+if ($conn->query($sql_createFriendship)) {
     echo "Table Friendship created successfully";
-}else {
+} else {
     echo "Error creating table:" . $conn->error;
 }
 
-$sql_createLike ="CREATE TABLE PostLikes(
+//Create PostLike table
+$sql_createLike = "CREATE TABLE PostLikes(
   PostLikeID INT(6) UNSIGNED AUTO_INCREMENT,
   PostID INT(6) UNSIGNED,
-  UserID INT(6) UNSIGNED,
+  LikerID INT(6) UNSIGNED,
   PRIMARY KEY (PostLikeID),
   FOREIGN KEY (PostID) REFERENCES UserPosts(PostID),
-  FOREIGN KEY (UserID) REFERENCES UserAccounts(UserID) 
+  FOREIGN KEY (LikerID) REFERENCES UserAccounts(UserID) 
 )";
 
-if ($conn->query($sql_createLike)==true){
+if ($conn->query($sql_createLike)) {
     echo "Table PostLike created successfully";
-}else{
-    echo "Error creating table".$conn->error;
+} else {
+    echo "Error creating table" . $conn->error;
 }
 
+//Create PostComment table
+$sql_createComment = "CREATE TABLE PostComments(
+  PostCommentID INT(6) UNSIGNED AUTO_INCREMENT,
+  CommentContent VARCHAR(500) NOT NULL,
+  PostID INT(6) UNSIGNED,
+  ReplierID INT(6)UNSIGNED,
+  PRIMARY KEY (PostCommentID),
+  FOREIGN KEY (PostID) REFERENCES UserPosts(PostID),
+  FOREIGN KEY (ReplierID) REFERENCES UserAccounts(UserID) 
+)";
 
+if ($conn->query($sql_createComment)) {
+    echo "Table PostComment created successfully";
+} else {
+    echo "Error creating table" . $conn->error;
+}
 
 $conn->close();
 

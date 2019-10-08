@@ -10,6 +10,7 @@ require_once '../Controllers/DBConnect.php';
 require_once '../Controllers/FriendRequest.php';
 require_once '../Controllers/Post.php';
 require_once '../Controllers/PostLike.php';
+require_once '../Controllers/PostComment.php';
 $user = $_SESSION['User'];
 $userID = $user[0]["UserID"];
 $userName = $user[0]["ScreenName"];

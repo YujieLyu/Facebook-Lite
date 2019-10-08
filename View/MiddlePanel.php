@@ -10,14 +10,22 @@
 
     <!--What's on your mind?-->
     <div class="card-body">
-        <img class="rounded-circle" src="../resources/Yujie.JPG" alt="avatar" style="width: 40px;">
-        <form id="post" action="../router.php" method="post">
+        <div class="row">
+            <div class="col-1">
+                <img class="rounded-circle" src="../resources/Yujie.JPG" alt="avatar" style="width: 40px;">
+            </div>
+            <div class="col-11">
+                <form id="post" action="../router.php" method="post">
             <textarea class="form-control text-dark mt-2" rows="4" name="Post" id="post"
                       placeholder="What's on your mind?" style="resize: none"></textarea>
-            <input type="hidden" name="userID" value="<?php echo $userID ?>">
-            <input type="submit" class="btn text-white mt-2 border-0 float-sm-right px-2"
-                   style="background: #3b5998">
-        </form>
+                    <input type="hidden" name="userID" value="<?php echo $userID ?>">
+                    <input type="submit" class="btn text-white mt-2 border-0 float-sm-right px-2"
+                           style="background: #3b5998">
+                </form>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
@@ -78,26 +86,35 @@ if ($posts != NULL):
                 <div class="input-group mt-n3">
                     <form action="../router.php" method="post">
                         <input type="hidden" name="postID" value="<?php echo $post_id ?>">
-                        <input type="hidden" name="userID" value="<?php echo $userID ?>">
+                        <input type="hidden" name="likerID" value="<?php echo $userID ?>">
                         <input type="submit" name="Like" class="btn btn-light w-50  text-dark" value="Like">
                         <input type="button" class="btn btn-light w-50 text-dark" value="Comment"
                                onclick="showReplyBox<?php echo $comment_no ?>()">
                     </form>
 
                 </div>
+
+
                 <div id="replyBox<?php echo $comment_no ?>" class="m-4" style="display: none;">
-                    <img class="rounded-circle mx-2 my-2" src="../resources/Yujie.JPG" alt="avatar"
-                         style="width: 40px;">
-                    <form action="../router.php" method="post">
-                        <input type="hidden" name="postID" value="<?php echo $post_id ?>">
-                        <input type="hidden" name="userID" value="<?php echo $userID ?>">
-                        <textarea name="Reply" id="reply" class="form-control text-dark mt-2 mx-4" rows="1"
-                                  style="width: 600px"></textarea>
-                        <input type="submit" name="Comment"
-                               class="btn text-white mt-2 border-0 float-sm-right px-2"
-                               style="background: #3b5998"
-                               value="Reply" >
-                    </form>
+                    <div class="row">
+                        <div class="col-1">
+                            <img class="rounded-circle mx-2 my-2" src="../resources/Yujie.JPG" alt="avatar"
+                                 style="width: 40px;">
+                        </div>
+                        <div class="col-10">
+                            <form action="../router.php" method="post">
+                                <input type="hidden" name="postID" value="<?php echo $post_id ?>">
+                                <input type="hidden" name="replierID" value="<?php echo $userID ?>">
+                                <textarea name="replyContent" id="reply" class="form-control text-dark mt-2 mx-4" rows="1"
+                                          style="resize: none"></textarea>
+                                <input type="submit" name="Comment"
+                                       class="btn text-white mt-2 border-0 float-sm-right px-2"
+                                       style="background: #3b5998"
+                                       value="Reply">
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
                 <script>
                     function showReplyBox<?php echo $comment_no ?>() {
@@ -111,7 +128,6 @@ if ($posts != NULL):
                 </script>
         </div>
     <?php
-
     endforeach;
 endif;
 ?>

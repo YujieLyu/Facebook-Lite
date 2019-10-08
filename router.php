@@ -13,7 +13,7 @@ require_once 'Controllers/DBConnect.php';
 require_once 'Controllers/FriendRequest.php';
 require_once 'Controllers/Post.php';
 require_once 'Controllers/PostLike.php';
-
+require_once 'Controllers/PostComment.php';
 
 //Add new posts
 $userPost = new Post();
@@ -25,6 +25,12 @@ if (isset($_POST['Post'])) {
 $post_like = new PostLike();
 if (isset($_POST['Like'])) {
     $post_like->createPostLike();
+}
+
+//Add new post comment
+$post_comment= new PostComment();
+if (isset($_POST['Comment'])){
+    $post_comment->createComment();
 }
 
 //Friends connecting request
@@ -39,3 +45,5 @@ if (isset($_POST['AddFriend'])) {
 if (isset($_POST['Yes']) || isset($_POST['No'])) {
     $requests->processRequest();
 }
+
+

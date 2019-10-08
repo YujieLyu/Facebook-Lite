@@ -14,6 +14,20 @@ class PostLike
 
     }
 
+    function createPostLike()
+    {
+        $conn = DBConnect::connect();
+        $postID = $_POST['postID'];
+        $likerID = $_POST['likerID'];
+        $sql_createPostLike = "insert into faceBook.PostLikes(PostID,LikerID) values('$postID','$likerID')";
+        if ($conn->query($sql_createPostLike)) {
+            header("Location: View/MainPage.php");
+        } else {
+            echo "Like failed:" . $conn->error;
+        }
+
+    }
+
     function getPostLike($postID)
     {
         $conn = DBConnect::connect();
@@ -28,17 +42,4 @@ class PostLike
         return null;
     }
 
-    function createPostLike()
-    {
-        $conn = DBConnect::connect();
-        $postID = $_POST['postID'];
-        $userID = $_POST['userID'];
-        $sql_createPostLike = "insert into faceBook.PostLikes(PostID,UserID) values('$postID','$userID')";
-        if ($conn->query($sql_createPostLike)) {
-            header("Location: View/MainPage.php");
-        } else {
-            echo "Like failed:" . $conn->error;
-        }
-
-    }
 }
