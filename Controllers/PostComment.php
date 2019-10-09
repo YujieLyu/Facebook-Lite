@@ -30,7 +30,7 @@ class PostComment
     function getComment($post_id)
     {
         $conn = DBConnect::connect();
-        $sql_getComment = "select * from faceBook.PostComments where PostID=" . $post_id;
+        $sql_getComment = "select * from faceBook.PostComments inner join faceBook.UserAccounts on ReplierID=UserID where PostID=" . $post_id;
         $result_comment = $conn->query($sql_getComment);
         $comment_array[] = array();
         if ($result_comment->num_rows > 0) {
