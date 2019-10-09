@@ -80,7 +80,7 @@ if ($posts != NULL):
                 <?php echo $post_content; ?>
             </div>
             <!--Show likes and comments-->
-            <div class="row mt-2 mb-n2">
+            <div class="row mt-2 mb-n4">
                 <div class="col-6 text-center small">
                     <a href="#" data-toggle="tooltip" title="Chenglong Ma"><?php echo $likes_num ?>
                         Likes</a>

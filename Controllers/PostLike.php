@@ -14,6 +14,25 @@ class PostLike
 
     }
 
+    function processLikeRequest()
+    {
+        $postID = $_POST['postID'];
+        $likerID = $_POST['likerID'];
+        if (!$this->checkLikeUnique($postID, $likerID)) {
+            $this->createPostLike();
+        } else {
+            $this->deletePostLike();
+        }
+    }
+
+    function checkLikeUnique($postID, $likerID)
+    {
+        $conn = DBConnect::connect();
+        $sql_checkLikeUnique = "select * from faceBook.PostLikes where PostID=" . $postID . " and LikerID=" . $likerID;
+        $result_like = $conn->query($sql_checkLikeUnique);
+        return $result_like->num_rows > 0;
+    }
+
     function createPostLike()
     {
         $conn = DBConnect::connect();
@@ -24,6 +43,19 @@ class PostLike
             header("Location: View/MainPage.php");
         } else {
             echo "Like failed:" . $conn->error;
+        }
+    }
+
+    function deletePostLike()
+    {
+        $conn = DBConnect::connect();
+        $postID = $_POST['postID'];
+        $likerID = $_POST['likerID'];
+        $sql_deleteLike = "delete from faceBook.PostLikes where PostID=" . $postID . " and LikerID=" . $likerID;
+        if ($conn->query($sql_deleteLike)) {
+            header("Location: View/MainPage.php");
+        } else {
+            echo "Delete like failed" . $conn->error;
         }
 
     }
@@ -41,5 +73,6 @@ class PostLike
         }
         return null;
     }
+
 
 }

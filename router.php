@@ -21,15 +21,15 @@ if (isset($_POST['Post'])) {
     $userPost->createPost();
 }
 
-//Add new post likes
+//Process new post like request
 $post_like = new PostLike();
 if (isset($_POST['Like'])) {
-    $post_like->createPostLike();
+    $post_like->processLikeRequest();
 }
 
 //Add new post comment
-$post_comment= new PostComment();
-if (isset($_POST['Comment'])){
+$post_comment = new PostComment();
+if (isset($_POST['Comment'])) {
     $post_comment->createComment();
 }
 
