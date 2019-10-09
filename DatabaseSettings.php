@@ -99,6 +99,7 @@ if ($conn->query($sql_createLike)) {
 $sql_createComment = "CREATE TABLE PostComments(
   PostCommentID INT(6) UNSIGNED AUTO_INCREMENT,
   CommentContent VARCHAR(500) NOT NULL,
+  CommentTime DATETIME NOT NULL, 
   PostID INT(6) UNSIGNED,
   ReplierID INT(6)UNSIGNED,
   PRIMARY KEY (PostCommentID),

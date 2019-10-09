@@ -31,11 +31,7 @@
 
 <?php
 if ($posts != NULL):
-//    $comment_no = 0;
-    foreach ($posts
-
-             as $index => $value) :
-//        ++$comment_no;
+    foreach ($posts as $index => $value) :
         $post_time = $value['PostTime'];
         $post_content = $value['Content'];
         $post_name = $value['ScreenName'];
@@ -44,6 +40,10 @@ if ($posts != NULL):
         $likes = $post_like->getPostLike($post_id);
         $post_comment = new PostComment();
         $comments = $post_comment->getComment($post_id);
+        $comment_no = 0;
+        $comment_time = null;
+        $comment_content = null;
+        $replierScreenName = null;
         if ($likes != null):
             $likes_num = count($likes);
         else:
@@ -54,6 +54,7 @@ if ($posts != NULL):
             foreach ($comments as $commentIndex => $comment):
                 $comment_no = $comment['PostCommentID'];
                 $comment_content = $comment['CommentContent'];
+                $comment_time = $comment['CommentTime'];
                 $replierScreenName = $comment['ScreenName'];
 
             endforeach;
@@ -62,24 +63,28 @@ if ($posts != NULL):
         endif;
 
         ?>
+        <!-- Posts showing card-->
         <div class="card rounded-0 shadow-sm mb-3 bg-white">
             <div class="card-body">
                 <div class="row">
+                    <!-- User's avatar-->
                     <div class="col-1">
                         <img class="flex rounded-circle mr-2" src="../resources/Yujie.JPG" alt="avatar"
                              style="width: 40px;">
                     </div>
+                    <!--User's name and post published time-->
                     <div class="col-3">
                         <span style="color: #3b5998"><b><?php echo $post_name; ?><br></b></span>
                         <span><small><?php echo $post_time ?></small></span>
                     </div>
                 </div>
             </div>
-
+            <!-- Post content-->
             <div class="ml-4 mb-2">
                 <?php echo $post_content; ?>
             </div>
-            <!--Show likes and comments-->
+
+            <!--Show likes and comments number-->
             <div class="row mt-2 mb-n4">
                 <div class="col-6 text-center small">
                     <a href="#" data-toggle="tooltip" title="Chenglong Ma"><?php echo $likes_num ?>
@@ -89,7 +94,6 @@ if ($posts != NULL):
                     <a href="#" data-toggle="tooltip" title="Chenglong Ma"
                        onclick="showReplyList<?php echo $comment_no ?>()"><?php echo $comments_num ?> Comment</a>
                 </div>
-
                 <hr/>
 
                 <script>
@@ -99,15 +103,19 @@ if ($posts != NULL):
 
                     function showReplyList<?php echo $comment_no ?>() {
                         let x = document.getElementById("replyList<?php echo $comment_no ?>");
-                        if (x.style.display === "none") {
+                        if (x.style.display === "none" && (<?php echo $comment_no ?> > 0))
+                        {
                             x.style.display = "block";
-                        } else {
+                        }
+                    else
+                        {
                             x.style.display = "none";
                         }
                     }
                 </script>
             </div>
             <hr/>
+            <!-- Comments lists-->
             <div id="replyList<?php echo $comment_no ?>" class="mt-2 mb-4" style="display: none;">
                 <div class="row p-2">
                     <div class="col-1 ">
@@ -115,10 +123,17 @@ if ($posts != NULL):
                              style="width: 30px;">
                     </div>
                     <div class="col-10">
-                        <div class="mx-2 px-3 py-2"
+                        <div class="mx-2 px-3 py-1"
                              style="display: inline-block;border-radius: 30px; background-color: #E9EBEE">
                             <span style="color: #3b5998"><b><?php echo $replierScreenName ?>: </b></span>
                             <span><?php echo $comment_content ?></span>
+                        </div>
+                        <br>
+                        <div class="mt-1">
+                            <button type="button" class="mx-2 border-0" style="color: #3b5998" onclick="showReplyBox()">
+                                <small>Reply</small>
+                            </button>
+                            <span><small><?php echo $comment_time ?></small></span>
                         </div>
 
                     </div>
@@ -129,13 +144,15 @@ if ($posts != NULL):
                 <form action="../router.php" method="post" class="w-50">
                     <input type="hidden" name="postID" value="<?php echo $post_id ?>">
                     <input type="hidden" name="likerID" value="<?php echo $userID ?>">
-                    <button type="submit" name="Like" class="btn btn-light btn-block text-dark">Like</button>
+                    <button type="submit" id="like" name="Like" class="btn btn-light btn-block text-dark"
+                            onclick="changeButtonStatus()">Like
+                    </button>
                 </form>
                 <button type="button" class="btn btn-light w-50 text-dark"
                         onclick="showReplyBox<?php echo $post_id ?>()">Comment
                 </button>
             </div>
-
+            <!--Reply box for making comments-->
             <div id="replyBox<?php echo $post_id ?>" class="m-4" style="display: none;">
                 <div class="row">
                     <div class="col-1">
@@ -155,9 +172,13 @@ if ($posts != NULL):
                         </form>
                     </div>
                 </div>
-
             </div>
+
             <script>
+                function changeButtonStatus() {
+                    document.getElementById("like").innerHTML = "Liked";
+                }
+
                 function showReplyBox<?php echo $post_id ?>() {
                     let x = document.getElementById("replyBox<?php echo $post_id ?>");
                     if (x.style.display === "none") {
