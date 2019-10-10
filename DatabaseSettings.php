@@ -16,15 +16,15 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed:" . $conn->connect_error);
 }
-//echo "Connected successfully";
+echo "Connected successfully";
 
 //Create faceBook database
-//$createDB = "CREATE DATABASE faceBook";
-//if ($conn->query($createDB) === TRUE) {
-//    echo "Database created successfully";
-//} else {
-//    echo "Error creating database:" . $conn->error;
-//}
+$createDB = "CREATE DATABASE faceBook";
+if ($conn->query($createDB) === TRUE) {
+    echo "Database created successfully";
+} else {
+    echo "Error creating database:" . $conn->error;
+}
 
 //Create UserAccount table
 $sql_createUserAccounts = "CREATE TABLE UserAccounts(
@@ -98,7 +98,7 @@ if ($conn->query($sql_createLike)) {
 //Create PostComment table
 $sql_createComment = "CREATE TABLE PostComments(
   PostCommentID INT(6) UNSIGNED AUTO_INCREMENT,
-  CommentContent VARCHAR(500) NOT NULL,
+  CommentContent VARCHAR(200) NOT NULL,
   CommentTime DATETIME NOT NULL, 
   PostID INT(6) UNSIGNED,
   ReplierID INT(6)UNSIGNED,
@@ -111,6 +111,23 @@ if ($conn->query($sql_createComment)) {
     echo "Table PostComment created successfully";
 } else {
     echo "Error creating table" . $conn->error;
+}
+
+$sql_createCommentReplies = "CREATE TABLE CommentReplies(
+  CommentReplyID INT(6) UNSIGNED AUTO_INCREMENT,
+  ReplyContent VARCHAR(200) NOT NULL,
+  ReplyTime DATETIME NOT NULL,
+  CommentID INT(6) UNSIGNED,
+  ReplierID INT(6)UNSIGNED,
+  PRIMARY KEY (CommentReplyID),
+  FOREIGN KEY (CommentID) REFERENCES PostComments(PostCommentID),
+  FOREIGN KEY (ReplierID) REFERENCES UserAccounts(UserID)
+)";
+
+if ($conn->query($sql_createCommentReplies)){
+     echo "Table CommentReplies created successfully";
+}else{
+    echo "Error creating table".$conn->error;
 }
 
 $conn->close();

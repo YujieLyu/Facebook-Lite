@@ -19,11 +19,15 @@ class PostComment
         $content = $_POST['replyContent'];
         $postID = $_POST['postID'];
         $replierID = $_POST['replierID'];
-        $sql_createComment = "insert into faceBook.PostComments(CommentContent, CommentTime, PostID, ReplierID) values ('$content',now(),'$postID','$replierID ')";
-        if ($conn->query($sql_createComment)) {
-            header("Location: View/MainPage.php");
+        if ($content != null) {
+            $sql_createComment = "insert into faceBook.PostComments(CommentContent, CommentTime, PostID, ReplierID) values ('$content',now(),'$postID','$replierID ')";
+            if ($conn->query($sql_createComment)) {
+                header("Location: View/MainPage.php");
+            } else {
+                echo "Comment failed:" . $conn->error;
+            }
         } else {
-            echo "Comment failed:" . $conn->error;
+            header("Location: View/MainPage.php");
         }
     }
 

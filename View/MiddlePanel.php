@@ -40,7 +40,7 @@ if ($posts != NULL):
         $likes = $post_like->getPostLike($post_id);
         $post_comment = new PostComment();
         $comments = $post_comment->getComment($post_id);
-        $comment_no = 0;
+        $comment_id = 0;
         $comment_time = null;
         $comment_content = null;
         $replierScreenName = null;
@@ -97,6 +97,7 @@ if ($posts != NULL):
                 </script>
             </div>
             <hr/>
+
             <!--Likes & comments buttons-->
             <div class="btn-group mt-n3">
                 <form action="../router.php" method="post" class="w-50">
@@ -115,12 +116,12 @@ if ($posts != NULL):
             <!--Comments display area-->
             <div id="CommentArea<?php echo $post_id ?>" style="display: none;">
                 <!-- Reply box-->
-                <div class="row">
+                <div class="row mt-4 mb-2 mx-2">
                     <div class="col-1">
                         <img class="rounded-circle mx-2 my-2" src="../resources/Yujie.JPG" alt="avatar"
                              style="width: 40px;">
                     </div>
-                    <div class="col-10">
+                    <div class="col-10 ml-2">
                         <form action="../router.php" method="post">
                             <input type="hidden" name="postID" value="<?php echo $post_id ?>">
                             <input type="hidden" name="replierID" value="<?php echo $userID ?>">
@@ -141,14 +142,14 @@ if ($posts != NULL):
                 <?php
                 if ($comments != null):
                     foreach ($comments as $commentIndex => $comment):
-                        $comment_no = $comment['PostCommentID'];
+                        $comment_id = $comment['PostCommentID'];
                         $comment_content = $comment['CommentContent'];
                         $comment_time = $comment['CommentTime'];
                         $replierScreenName = $comment['ScreenName'];
                         ?>
                         <!-- Comments list-->
                         <div class="row p-2">
-                            <div class="col-1 ">
+                            <div class="col-1">
                                 <img class="rounded-circle mx-4 mb-2" src="../resources/reply.JPG" alt="avatar"
                                      style="width: 30px;">
                             </div>
@@ -160,14 +161,52 @@ if ($posts != NULL):
                                 </div>
                                 <br>
                                 <div class="mt-1">
-                                    <button type="button" class="mx-2 border-0" style="color: #3b5998">
+                                    <a href="#" class="mx-2 " style="color: #3b5998" onclick="showReplyBox<?php echo $comment_id ?>()">
                                         <small>Reply</small>
-                                    </button>
+                                    </a>
                                     <span><small><?php echo $comment_time ?></small></span>
                                 </div>
 
                             </div>
                         </div>
+<!--                    Sub-replyBox for each comment-->
+                    <div class="my-2 mr-4" id="replyBox<?php echo $comment_id ?>" style="display: none; margin-left: 60px">
+                        <div class="row" >
+                            <div class="col-1">
+                                <img class="rounded-circle mx-2 mb-2" src="../resources/Yujie.JPG" alt="avatar"
+                                     style="width: 30px;">
+                            </div>
+                            <div class="col-6 ml-2">
+                                <form action="../router.php" method="post">
+                                    <input type="hidden" name="postID" value="<?php echo $comment_id ?>">
+                                    <input type="hidden" name="replierID" value="<?php echo $userID ?>">
+                                    <div class="input-group">
+                                <textarea name="replyContent" id="reply" class="form-control text-dark mt-2 ml-"
+                                          rows="1"
+                                          style="resize: none"></textarea>
+                                        <div class="input-group-append">
+                                            <input type="submit" name="Comment"
+                                                   class="btn text-white mt-2 border-0 float-sm-right px-2"
+                                                   style="background: #3b5998"
+                                                   value="Reply">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+<!--                    Show reply box-->
+                    <script>
+                        function showReplyBox<?php echo $comment_id ?>() {
+                            let x = document.getElementById("replyBox<?php echo $comment_id ?>");
+                            if (x.style.display === "none") {
+                                x.style.display = "block";
+                            } else {
+                                x.style.display = "none";
+                            }
+                        }
+                    </script>
                     <?php
                     endforeach;
                 endif;
@@ -188,6 +227,7 @@ if ($posts != NULL):
                         x.style.display = "none";
                     }
                 }
+
             </script>
 
         </div>
