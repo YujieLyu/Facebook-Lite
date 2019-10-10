@@ -51,19 +51,12 @@ if ($posts != NULL):
         endif;
         if ($comments != null):
             $comments_num = count($comments);
-            foreach ($comments as $commentIndex => $comment):
-                $comment_no = $comment['PostCommentID'];
-                $comment_content = $comment['CommentContent'];
-                $comment_time = $comment['CommentTime'];
-                $replierScreenName = $comment['ScreenName'];
-
-            endforeach;
         else:
             $comments_num = 0;
         endif;
 
         ?>
-        <!-- Posts showing card-->
+        <!-- Posts content showing card-->
         <div class="card rounded-0 shadow-sm mb-3 bg-white">
             <div class="card-body">
                 <div class="row">
@@ -84,7 +77,7 @@ if ($posts != NULL):
                 <?php echo $post_content; ?>
             </div>
 
-            <!--Show likes and comments number-->
+            <!--Likes & comments number-->
             <div class="row mt-2 mb-n4">
                 <div class="col-6 text-center small">
                     <a href="#" data-toggle="tooltip" title="Chenglong Ma"><?php echo $likes_num ?>
@@ -92,7 +85,7 @@ if ($posts != NULL):
                 </div>
                 <div class="col-6 text-center text-dark small">
                     <a href="#" data-toggle="tooltip" title="Chenglong Ma"
-                       onclick="showReplyList<?php echo $comment_no ?>()"><?php echo $comments_num ?> Comment</a>
+                       onclick="showCommentArea<?php echo $post_id ?>()"><?php echo $comments_num ?> Comment</a>
                 </div>
                 <hr/>
 
@@ -101,44 +94,9 @@ if ($posts != NULL):
                         $('[data-toggle="tooltip"]').tooltip();
                     });
 
-                    function showReplyList<?php echo $comment_no ?>() {
-                        let x = document.getElementById("replyList<?php echo $comment_no ?>");
-                        if (x.style.display === "none" && (<?php echo $comment_no ?> > 0))
-                        {
-                            x.style.display = "block";
-                        }
-                    else
-                        {
-                            x.style.display = "none";
-                        }
-                    }
                 </script>
             </div>
             <hr/>
-            <!-- Comments lists-->
-            <div id="replyList<?php echo $comment_no ?>" class="mt-2 mb-4" style="display: none;">
-                <div class="row p-2">
-                    <div class="col-1 ">
-                        <img class="rounded-circle mx-4 my-2" src="../resources/reply.JPG" alt="avatar"
-                             style="width: 30px;">
-                    </div>
-                    <div class="col-10">
-                        <div class="mx-2 px-3 py-1"
-                             style="display: inline-block;border-radius: 30px; background-color: #E9EBEE">
-                            <span style="color: #3b5998"><b><?php echo $replierScreenName ?>: </b></span>
-                            <span><?php echo $comment_content ?></span>
-                        </div>
-                        <br>
-                        <div class="mt-1">
-                            <button type="button" class="mx-2 border-0" style="color: #3b5998" onclick="showReplyBox()">
-                                <small>Reply</small>
-                            </button>
-                            <span><small><?php echo $comment_time ?></small></span>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
             <!--Likes & comments buttons-->
             <div class="btn-group mt-n3">
                 <form action="../router.php" method="post" class="w-50">
@@ -149,11 +107,14 @@ if ($posts != NULL):
                     </button>
                 </form>
                 <button type="button" class="btn btn-light w-50 text-dark"
-                        onclick="showReplyBox<?php echo $post_id ?>()">Comment
+                        onclick="showCommentArea<?php echo $post_id ?>()">Comment
                 </button>
             </div>
-            <!--Reply box for making comments-->
-            <div id="replyBox<?php echo $post_id ?>" class="m-4" style="display: none;">
+
+
+            <!--Comments display area-->
+            <div id="CommentArea<?php echo $post_id ?>" style="display: none;">
+                <!-- Reply box-->
                 <div class="row">
                     <div class="col-1">
                         <img class="rounded-circle mx-2 my-2" src="../resources/Yujie.JPG" alt="avatar"
@@ -163,24 +124,64 @@ if ($posts != NULL):
                         <form action="../router.php" method="post">
                             <input type="hidden" name="postID" value="<?php echo $post_id ?>">
                             <input type="hidden" name="replierID" value="<?php echo $userID ?>">
-                            <textarea name="replyContent" id="reply" class="form-control text-dark mt-2 mx-4" rows="1"
-                                      style="resize: none"></textarea>
-                            <input type="submit" name="Comment"
-                                   class="btn text-white mt-2 border-0 float-sm-right px-2"
-                                   style="background: #3b5998"
-                                   value="Reply">
+                            <div class="input-group">
+                                <textarea name="replyContent" id="reply" class="form-control text-dark mt-2 ml-"
+                                          rows="1"
+                                          style="resize: none"></textarea>
+                                <div class="input-group-append">
+                                    <input type="submit" name="Comment"
+                                           class="btn text-white mt-2 border-0 float-sm-right px-2"
+                                           style="background: #3b5998"
+                                           value="Reply">
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
+                <?php
+                if ($comments != null):
+                    foreach ($comments as $commentIndex => $comment):
+                        $comment_no = $comment['PostCommentID'];
+                        $comment_content = $comment['CommentContent'];
+                        $comment_time = $comment['CommentTime'];
+                        $replierScreenName = $comment['ScreenName'];
+                        ?>
+                        <!-- Comments list-->
+                        <div class="row p-2">
+                            <div class="col-1 ">
+                                <img class="rounded-circle mx-4 mb-2" src="../resources/reply.JPG" alt="avatar"
+                                     style="width: 30px;">
+                            </div>
+                            <div class="col-10">
+                                <div class="mx-2 px-3 py-1"
+                                     style="display: inline-block;border-radius: 30px; background-color: #E9EBEE">
+                                    <span style="color: #3b5998"><b><?php echo $replierScreenName ?>: </b></span>
+                                    <span><?php echo $comment_content ?></span>
+                                </div>
+                                <br>
+                                <div class="mt-1">
+                                    <button type="button" class="mx-2 border-0" style="color: #3b5998">
+                                        <small>Reply</small>
+                                    </button>
+                                    <span><small><?php echo $comment_time ?></small></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    <?php
+                    endforeach;
+                endif;
+                ?>
             </div>
+
 
             <script>
                 function changeButtonStatus() {
                     document.getElementById("like").innerHTML = "Liked";
                 }
 
-                function showReplyBox<?php echo $post_id ?>() {
-                    let x = document.getElementById("replyBox<?php echo $post_id ?>");
+                function showCommentArea<?php echo $post_id ?>() {
+                    let x = document.getElementById("CommentArea<?php echo $post_id ?>");
                     if (x.style.display === "none") {
                         x.style.display = "block";
                     } else {
