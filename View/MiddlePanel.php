@@ -170,18 +170,8 @@ if ($posts != NULL):
 
                             </div>
                         </div>
-                    <?php
-                    $subComments = $post_comment->getSubComment($comment_id);
-                    foreach ($subComments
-
-                    as $subCommentIndex => $subComment):
-                    $subComment_id = $subComment['ParentCommentID'];
-                    $subComment_content = $subComment['CommentContent'];
-                    $subComment_time = $subComment['CommentTime'];
-                    $subReplierScreenName = $subComment['ScreenName'];
-                    ?>
-                        <!--Sub-replyBox for each comment-->
-                        <div class="my-2 mr-4" id="replyBox<?php echo $subComment_id ?>"
+                        <!--ReplyBox for each comment-->
+                        <div class="my-2 mr-4" id="replyBox<?php echo $comment_id ?>"
                              style="display: none; margin-left: 60px">
                             <div class="row">
                                 <div class="col-1">
@@ -190,7 +180,8 @@ if ($posts != NULL):
                                 </div>
                                 <div class="col-6 ml-2">
                                     <form action="../router.php" method="post">
-                                        <input type="hidden" name="parentCommentID" value="<?php echo $subComment_id ?>">
+                                        <input type="hidden" name="parentCommentID"
+                                               value="<?php echo $comment_id ?>">
                                         <input type="hidden" name="replierID" value="<?php echo $userID ?>">
                                         <div class="input-group">
                                 <textarea name="replySubContent" id="reply" class="form-control text-dark mt-2 ml-"
@@ -206,8 +197,18 @@ if ($posts != NULL):
                                 </div>
                             </div>
                         </div>
+                    <?php
+                    $subComments = $post_comment->getSubComment($comment_id)?:[];
+                    foreach ($subComments
+
+                    as $subCommentIndex => $subComment):
+                    $subComment_id = $subComment['PostCommentID'];
+                    $subComment_content = $subComment['CommentContent'];
+                    $subComment_time = $subComment['CommentTime'];
+                    $subReplierScreenName = $subComment['ScreenName'];
+                    ?>
                         <!--Sub Comments list-->
-                        <div class="row p-2">
+                        <div class="row p-2 ml-6">
                             <div class="col-1">
                                 <img class="rounded-circle mx-4 mb-2" src="../resources/reply.JPG" alt="avatar"
                                      style="width: 30px;">
@@ -221,7 +222,7 @@ if ($posts != NULL):
                                 <br>
                                 <div class="mt-1">
                                     <a href="#" class="mx-2 " style="color: #3b5998"
-                                       onclick="showReplyBox<?php echo $subComment_id ?>()">
+                                       onclick="showSubReplyBox<?php echo $subComment_id ?>()">
                                         <small>Reply</small>
                                     </a>
                                     <span><small><?php echo $subComment_time ?></small></span>
@@ -229,10 +230,46 @@ if ($posts != NULL):
 
                             </div>
                         </div>
+                        <!--Sub-replyBox for each comment-->
+                        <div class="my-2 mr-4" id="replySubBox<?php echo $subComment_id ?>"
+                             style="display: none; margin-left: 60px">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img class="rounded-circle mx-2 mb-2" src="../resources/Yujie.JPG" alt="avatar"
+                                         style="width: 30px;">
+                                </div>
+                                <div class="col-6 ml-2">
+                                    <form action="../router.php" method="post">
+                                        <input type="hidden" name="parentCommentID"
+                                               value="<?php echo $subComment_id ?>">
+                                        <input type="hidden" name="replierID" value="<?php echo $userID ?>">
+                                        <div class="input-group">
+                                <textarea name="replySubContent" id="reply" class="form-control text-dark mt-2 ml-"
+                                          rows="1" style="resize: none"></textarea>
+                                            <div class="input-group-append">
+                                                <input type="submit" name="ReplyToComment"
+                                                       class="btn text-white mt-2 border-0 float-sm-right px-2"
+                                                       style="background: #3b5998"
+                                                       value="Reply">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            function showSubReplyBox<?php echo $subComment_id ?>() {
+                                let x = document.getElementById("replySubBox<?php echo $subComment_id ?>");
+                                if (x.style.display === "none") {
+                                    x.style.display = "block";
+                                } else {
+                                    x.style.display = "none";
+                                }
+                            }
+                        </script>
                     <?php
                     endforeach;
                     ?>
-
 
                         <!--                    Show reply box-->
                         <script>
@@ -244,6 +281,7 @@ if ($posts != NULL):
                                     x.style.display = "none";
                                 }
                             }
+
                         </script>
                     <?php
                     endforeach;
