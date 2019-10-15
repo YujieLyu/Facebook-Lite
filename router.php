@@ -32,6 +32,9 @@ $post_comment = new PostComment();
 if (isset($_POST['Comment'])) {
     $post_comment->createComment();
 }
+if (isset($_POST['parentCommentID'])){
+    $post_comment->createSubComment();
+}
 
 //Friends connecting request
 $requests = new FriendRequest();

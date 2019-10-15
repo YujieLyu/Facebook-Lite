@@ -161,7 +161,8 @@ if ($posts != NULL):
                                 </div>
                                 <br>
                                 <div class="mt-1">
-                                    <a href="#" class="mx-2 " style="color: #3b5998" onclick="showReplyBox<?php echo $comment_id ?>()">
+                                    <a href="#" class="mx-2 " style="color: #3b5998"
+                                       onclick="showReplyBox<?php echo $comment_id ?>()">
                                         <small>Reply</small>
                                     </a>
                                     <span><small><?php echo $comment_time ?></small></span>
@@ -169,44 +170,44 @@ if ($posts != NULL):
 
                             </div>
                         </div>
-<!--                    Sub-replyBox for each comment-->
-                    <div class="my-2 mr-4" id="replyBox<?php echo $comment_id ?>" style="display: none; margin-left: 60px">
-                        <div class="row" >
-                            <div class="col-1">
-                                <img class="rounded-circle mx-2 mb-2" src="../resources/Yujie.JPG" alt="avatar"
-                                     style="width: 30px;">
-                            </div>
-                            <div class="col-6 ml-2">
-                                <form action="../router.php" method="post">
-                                    <input type="hidden" name="postID" value="<?php echo $comment_id ?>">
-                                    <input type="hidden" name="replierID" value="<?php echo $userID ?>">
-                                    <div class="input-group">
-                                <textarea name="replyContent" id="reply" class="form-control text-dark mt-2 ml-"
-                                          rows="1"
-                                          style="resize: none"></textarea>
-                                        <div class="input-group-append">
-                                            <input type="submit" name="Comment"
-                                                   class="btn text-white mt-2 border-0 float-sm-right px-2"
-                                                   style="background: #3b5998"
-                                                   value="Reply">
+                        <!--Sub-replyBox for each comment-->
+                        <div class="my-2 mr-4" id="replyBox<?php echo $comment_id ?>"
+                             style="display: none; margin-left: 60px">
+                            <div class="row">
+                                <div class="col-1">
+                                    <img class="rounded-circle mx-2 mb-2" src="../resources/Yujie.JPG" alt="avatar"
+                                         style="width: 30px;">
+                                </div>
+                                <div class="col-6 ml-2">
+                                    <form action="../router.php" method="post">
+                                        <input type="hidden" name="parentCommentID" value="<?php echo $comment_id ?>">
+                                        <input type="hidden" name="replierID" value="<?php echo $userID ?>">
+                                        <div class="input-group">
+                                <textarea name="replySubContent" id="reply" class="form-control text-dark mt-2 ml-"
+                                          rows="1" style="resize: none"></textarea>
+                                            <div class="input-group-append">
+                                                <input type="submit" name="ReplyToComment"
+                                                       class="btn text-white mt-2 border-0 float-sm-right px-2"
+                                                       style="background: #3b5998"
+                                                       value="Reply">
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-<!--                    Show reply box-->
-                    <script>
-                        function showReplyBox<?php echo $comment_id ?>() {
-                            let x = document.getElementById("replyBox<?php echo $comment_id ?>");
-                            if (x.style.display === "none") {
-                                x.style.display = "block";
-                            } else {
-                                x.style.display = "none";
+                        <!--                    Show reply box-->
+                        <script>
+                            function showReplyBox<?php echo $comment_id ?>() {
+                                let x = document.getElementById("replyBox<?php echo $comment_id ?>");
+                                if (x.style.display === "none") {
+                                    x.style.display = "block";
+                                } else {
+                                    x.style.display = "none";
+                                }
                             }
-                        }
-                    </script>
+                        </script>
                     <?php
                     endforeach;
                 endif;

@@ -15,20 +15,55 @@ class PostComment
 
     function createComment()
     {
+
         $conn = DBConnect::connect();
         $content = $_POST['replyContent'];
         $postID = $_POST['postID'];
+//        $parentCommentID = $_POST['parentCommentID'];
         $replierID = $_POST['replierID'];
         if ($content != null) {
-            $sql_createComment = "insert into faceBook.PostComments(CommentContent, CommentTime, PostID, ReplierID) values ('$content',now(),'$postID','$replierID ')";
-            if ($conn->query($sql_createComment)) {
-                header("Location: View/MainPage.php");
+            if ($postID != null) {
+                $sql_createComment = "insert into faceBook.PostComments(CommentContent, CommentTime, PostID,ParentCommentID, ReplierID) values ('$content',now(),'$postID',NULL,'$replierID')";
+                if ($conn->query($sql_createComment)) {
+                    header("Location: View/MainPage.php");
+                } else {
+                    echo "Comment failed:" . $conn->error;
+                }
             } else {
-                echo "Comment failed:" . $conn->error;
+                header("Location: View/MainPage.php");
             }
         } else {
             header("Location: View/MainPage.php");
         }
+    }
+
+    function createSubComment()
+    {
+        $conn = DBConnect::connect();
+        $content = $_POST['replySubContent'];
+        $parentCommentID = $_POST['parentCommentID'];
+        $replierID = $_POST['replierID'];
+        if ($content != null) {
+            if ($parentCommentID != null) {
+                $sql_createComment = "insert into faceBook.PostComments(CommentContent, CommentTime, PostID,ParentCommentID, ReplierID) values ('$content',now(),NULL,'$parentCommentID','$replierID')";
+                if ($conn->query($sql_createComment)) {
+                    header("Location: View/MainPage.php");
+                } else {
+                    echo "Comment failed:" . $conn->error;
+                }
+            } else {
+                header("Location: View/MainPage.php");
+            }
+        } else {
+            header("Location: View/MainPage.php");
+        }
+    }
+
+
+//todo:
+    function deleteComment()
+    {
+
     }
 
     function getComment($post_id)

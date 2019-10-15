@@ -101,6 +101,7 @@ $sql_createComment = "CREATE TABLE PostComments(
   CommentContent VARCHAR(200) NOT NULL,
   CommentTime DATETIME NOT NULL, 
   PostID INT(6) UNSIGNED,
+  ParentCommentID INT(6) UNSIGNED,
   ReplierID INT(6)UNSIGNED,
   PRIMARY KEY (PostCommentID),
   FOREIGN KEY (PostID) REFERENCES UserPosts(PostID),
@@ -113,22 +114,22 @@ if ($conn->query($sql_createComment)) {
     echo "Error creating table" . $conn->error;
 }
 
-$sql_createCommentReplies = "CREATE TABLE CommentReplies(
-  CommentReplyID INT(6) UNSIGNED AUTO_INCREMENT,
-  ReplyContent VARCHAR(200) NOT NULL,
-  ReplyTime DATETIME NOT NULL,
-  CommentID INT(6) UNSIGNED,
-  ReplierID INT(6)UNSIGNED,
-  PRIMARY KEY (CommentReplyID),
-  FOREIGN KEY (CommentID) REFERENCES PostComments(PostCommentID),
-  FOREIGN KEY (ReplierID) REFERENCES UserAccounts(UserID)
-)";
+//$sql_createCommentReplies = "CREATE TABLE CommentReplies(
+//  CommentReplyID INT(6) UNSIGNED AUTO_INCREMENT,
+//  ReplyContent VARCHAR(200) NOT NULL,
+//  ReplyTime DATETIME NOT NULL,
+//  CommentID INT(6) UNSIGNED,
+//  ReplierID INT(6)UNSIGNED,
+//  PRIMARY KEY (CommentReplyID),
+//  FOREIGN KEY (CommentID) REFERENCES PostComments(PostCommentID),
+//  FOREIGN KEY (ReplierID) REFERENCES UserAccounts(UserID)
+//)";
 
-if ($conn->query($sql_createCommentReplies)){
-     echo "Table CommentReplies created successfully";
-}else{
-    echo "Error creating table".$conn->error;
-}
+//if ($conn->query($sql_createCommentReplies)){
+//     echo "Table CommentReplies created successfully";
+//}else{
+//    echo "Error creating table".$conn->error;
+//}
 
 $conn->close();
 
