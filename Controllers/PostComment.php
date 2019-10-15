@@ -59,6 +59,18 @@ class PostComment
         }
     }
 
+    function getSubComment($postComment_id){
+        $conn = DBConnect::connect();
+        $sql_getComment = "select * from faceBook.PostComments inner join faceBook.UserAccounts on ReplierID=UserID where ParentCommentID=" . $postComment_id;
+        $result_comment = $conn->query($sql_getComment);
+        $subcomment_array[] = array();
+        if ($result_comment->num_rows > 0) {
+            $subcomment_array = $result_comment->fetch_all(MYSQLI_ASSOC);
+            return $subcomment_array;
+        } else {
+            return null;
+        }
+    }
 
 //todo:
     function deleteComment()

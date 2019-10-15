@@ -170,8 +170,18 @@ if ($posts != NULL):
 
                             </div>
                         </div>
+                    <?php
+                    $subComments = $post_comment->getSubComment($comment_id);
+                    foreach ($subComments
+
+                    as $subCommentIndex => $subComment):
+                    $subComment_id = $subComment['ParentCommentID'];
+                    $subComment_content = $subComment['CommentContent'];
+                    $subComment_time = $subComment['CommentTime'];
+                    $subReplierScreenName = $subComment['ScreenName'];
+                    ?>
                         <!--Sub-replyBox for each comment-->
-                        <div class="my-2 mr-4" id="replyBox<?php echo $comment_id ?>"
+                        <div class="my-2 mr-4" id="replyBox<?php echo $subComment_id ?>"
                              style="display: none; margin-left: 60px">
                             <div class="row">
                                 <div class="col-1">
@@ -180,7 +190,7 @@ if ($posts != NULL):
                                 </div>
                                 <div class="col-6 ml-2">
                                     <form action="../router.php" method="post">
-                                        <input type="hidden" name="parentCommentID" value="<?php echo $comment_id ?>">
+                                        <input type="hidden" name="parentCommentID" value="<?php echo $subComment_id ?>">
                                         <input type="hidden" name="replierID" value="<?php echo $userID ?>">
                                         <div class="input-group">
                                 <textarea name="replySubContent" id="reply" class="form-control text-dark mt-2 ml-"
@@ -196,6 +206,33 @@ if ($posts != NULL):
                                 </div>
                             </div>
                         </div>
+                        <!--Sub Comments list-->
+                        <div class="row p-2">
+                            <div class="col-1">
+                                <img class="rounded-circle mx-4 mb-2" src="../resources/reply.JPG" alt="avatar"
+                                     style="width: 30px;">
+                            </div>
+                            <div class="col-10">
+                                <div class="mx-2 px-3 py-1"
+                                     style="display: inline-block;border-radius: 30px; background-color: #E9EBEE">
+                                    <span style="color: #3b5998"><b><?php echo $subReplierScreenName ?>: </b></span>
+                                    <span><?php echo $subComment_content ?></span>
+                                </div>
+                                <br>
+                                <div class="mt-1">
+                                    <a href="#" class="mx-2 " style="color: #3b5998"
+                                       onclick="showReplyBox<?php echo $subComment_id ?>()">
+                                        <small>Reply</small>
+                                    </a>
+                                    <span><small><?php echo $subComment_time ?></small></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    <?php
+                    endforeach;
+                    ?>
+
 
                         <!--                    Show reply box-->
                         <script>
